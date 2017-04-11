@@ -12,20 +12,26 @@ namespace MyProject
         int CartID { get; set; }
         List<CartProduct> CartProducts { get; set; }
 
-        decimal Total {
+        decimal GrandTotal {
             get
             {
                 decimal sum = 0;
                 foreach (var item in CartProducts)
                 {
-                    sum=sum+item.Quantity*item.Produc
+                    sum = sum + item.Quantity * item.Product.ProductPrice;
                 }
+                return sum;
             }
         }
 
         public void AddCartProduct(CartProduct product)
         {
-            CartProducts.Add(product);
+            if (!CartProducts.Contains(product)) { CartProducts.Add(product); }
+            else
+            {
+                var index = CartProducts.FindIndex(x => x == product);
+                CartProducts[index].Quantity += product.Quantity;
+            }
         }
 
         public void RemoveCartProduct(CartProduct product)

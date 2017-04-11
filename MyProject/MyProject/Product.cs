@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyProject
 {
-    class Product
+    public class Product : AbstractProduct
     {
         //ctor for reading(with id)
         public Product(int id, string name,string category,decimal price, int stock, string description, bool visibility)
@@ -32,13 +32,17 @@ namespace MyProject
             ProductVisibility = visibility;
 
         }
-        public int ProductID { get; private set; }
-        public string ProductName { get; private set; }
-        public string ProductCategory { get; private set; }
-        public decimal ProductPrice { get; private set; }
-        public int ProductStock { get; private set; }
-        public string ProductDescription { get; private set; }
-        public bool ProductVisibility { get; private set; }
+        //public int ProductID { get; private set; }
+        //public string ProductName { get; private set; }
+        //public string ProductCategory { get; private set; }
+        //public decimal ProductPrice { get; private set; }
+        //public int ProductStock { get; private set; }
+        //public string ProductDescription { get; private set; }
+        //public bool ProductVisibility { get; private set; }
 
+        public decimal Cost()
+        {
+            return ProductPrice;
+        }
     }
 }
