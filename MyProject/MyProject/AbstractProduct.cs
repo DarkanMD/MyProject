@@ -6,14 +6,14 @@ using System.Threading.Tasks;
 
 namespace MyProject
 {
-    class AbstractProduct
+    public abstract class AbstractProduct
     {
-        public int ProductID;
-        public string ProductName;
-        public string ProductCategory;
-        public decimal ProductPrice;
-        public int ProductStock;
-        public string ProductDescription;
-        public bool ProductVisibility;
+        public virtual int ProductId { get; set; }
+        public virtual string ProductName { get; set; }
+        public virtual string ProductCategory { get; set; }
+        public virtual decimal ProductPrice { get; set; }
+        public virtual int ProductStock { get; set; }
+        public virtual string ProductDescription { get; set; }
+        public virtual bool ProductVisibility { get; set; }
     }
 }

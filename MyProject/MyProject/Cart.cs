@@ -3,14 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using NHibernate.Mapping.ByCode.Conformist;
 
 namespace MyProject
 {
-    class Cart
+    public class Cart
     {
-        int UserID { get; set; }
-        int CartID { get; set; }
-        List<CartProduct> CartProducts { get; set; }
+        public virtual int UserID { get; set; }
+        public virtual int CartID { get; set; }
+        public virtual List<CartProduct> CartProducts { get; set; }
 
         decimal GrandTotal {
             get
@@ -37,6 +38,16 @@ namespace MyProject
         public void RemoveCartProduct(CartProduct product)
         {
             CartProducts.Remove(product);
+        }
+    }
+
+    public class CartMap : ClassMapping<Cart>
+    {
+        public CartMap()
+        {
+            Id(x=>x.CartID);
+            Property(x=>x.UserID);
+            ManyToOne(x=>x.CartProducts);
         }
     }
 }
