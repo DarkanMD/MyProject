@@ -3,14 +3,18 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using NHibernate.Mapping.ByCode;
-using NHibernate.Mapping.ByCode.Conformist;
+using FluentNHibernate.Mapping;
 using NHibernate.Driver;
 
 namespace MyProject
 {
-    public class Product : AbstractProduct
+    public class Product
     {
+
+        public Product()
+        {
+                
+        }
         //ctor for reading(with id)
         public Product(int id, string name, string category, decimal price, int stock, string description,
             bool visibility)
@@ -45,24 +49,36 @@ namespace MyProject
         //public string ProductDescription { get; private set; }
         //public bool ProductVisibility { get; private set; }
 
+        public virtual int ProductId { get; set; }
+        public virtual string ProductName { get; set; }
+        public virtual string ProductCategory { get; set; }
+        public virtual decimal ProductPrice { get; set; }
+        public virtual int ProductStock { get; set; }
+        public virtual string ProductDescription { get; set; }
+        public virtual bool ProductVisibility { get; set; }
         public virtual decimal Cost()
         {
             return ProductPrice;
         }
+
+        public override string ToString()
+        {
+            return $"{ProductId} {ProductName} {ProductCategory} {ProductPrice} {ProductStock} {ProductDescription} {ProductVisibility}";
+        }
     }
 
 
-    public class ProductMap : ClassMapping<Product>
+    public class ProductMap : ClassMap<Product>
     {
         public ProductMap()
         {
             Id(x => x.ProductId);
-            Property(x => x.ProductName);
-            Property(x => x.ProductCategory);
-            Property(x => x.ProductPrice);
-            Property(x => x.ProductStock);
-            Property(x => x.ProductDescription);
-            Property(x => x.ProductVisibility);
+            Map(x => x.ProductName);
+            Map(x => x.ProductCategory);
+            Map(x => x.ProductPrice);
+            Map(x => x.ProductStock);
+            Map(x => x.ProductDescription);
+            Map(x => x.ProductVisibility);
         }
     }
 }

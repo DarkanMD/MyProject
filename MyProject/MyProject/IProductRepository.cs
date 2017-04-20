@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyProject
 {
-    public interface IProductRepository : IRepository<Product, string>
+    public interface IProductRepository /*: IRepository<Product, string>*/
     {
         IEnumerable<Product> FindAll();
         IEnumerable<Product> Find(Func<Product, bool> expression);

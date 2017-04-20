@@ -26,9 +26,9 @@ namespace MyProject.Properties {
         [global::System.Configuration.ApplicationScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.SpecialSettingAttribute(global::System.Configuration.SpecialSetting.ConnectionString)]
-        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=MDDSK40034-2\\PVV;Initial Catalog=Formula1;User ID=sa;Password=5p93Yan" +
-            "2;Connect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent" +
-            "=ReadWrite;MultiSubnetFailover=False")]
+        [global::System.Configuration.DefaultSettingValueAttribute("Data Source=MDDSK40034-2\\PVV;Initial Catalog=MyProject;Integrated Security=True;C" +
+            "onnect Timeout=15;Encrypt=False;TrustServerCertificate=True;ApplicationIntent=Re" +
+            "adWrite;MultiSubnetFailover=False")]
         public string SQL {
             get {
                 return ((string)(this["SQL"]));

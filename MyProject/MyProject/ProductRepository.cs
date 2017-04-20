@@ -1,4 +1,5 @@
-﻿using System;
+﻿using NHibernate;
+using System;
 using System.Collections.Generic;
 using System.Data.Entity;
 using System.Linq;
@@ -8,39 +9,36 @@ using System.Threading.Tasks;
 
 namespace MyProject
 {
-    public class ProductRepository : IProductRepository
+    public class ProductRepository //: IRepository<Product>
     {
-        private readonly DbContext _dbContext;
+        private readonly ISession _session;
 
-        public ProductRepository(DbContext dbContext)
+        public ProductRepository(ISession session)
         {
-            _dbContext = dbContext;
-        }
-
-
-        public Product Get(string id)
-        {
-            return _dbContext.Products.FirstOrDefault(x => x.Id == id);
-        }
-
-        public void Save(Product entity)
-        {
-            _dbContext.Products.Attach(entity);
+            _session = session;
         }
 
         public void Delete(Product entity)
         {
-            _dbContext.Products.Remove(entity);
+            using (ITransaction transaction = _session.BeginTransaction())
+            {
+                _session.Delete(entity);
+                transaction.Commit();
+            }
         }
 
-        public IEnumerable<Product> FindAll()
+        public Product Get(int id)
         {
-            return _dbContext.Products.ToList();
+           return _session.QueryOver<Product>().Where(c => c.ProductId==id).SingleOrDefault();
         }
 
-        public IEnumerable<Product> Find(Func<Product, bool> expression)
+        public void Save(Product entity)
         {
-            return _dbContext.Products.Where(expression).ToList();
+            using (ITransaction transaction = _session.BeginTransaction())
+            {
+                _session.SaveOrUpdate(entity);
+                transaction.Commit();
+            }
         }
     }
 }
