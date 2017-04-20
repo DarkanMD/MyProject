@@ -50,7 +50,7 @@ namespace MyProject
         public UserMap()
         {
             Id(x => x.UserID);
-            HasMany(x => x.Carts).KeyUpdate();
+            HasMany(x => x.Carts).Inverse().Cascade.AllDeleteOrphan();
             Map(x => x.UserName);
             Map(x => x.UserAddress);
             Map(x => x.UserEmailAddress);

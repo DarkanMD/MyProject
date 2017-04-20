@@ -19,6 +19,7 @@ namespace MyProject
         static void Main(string[] args)
         {
             ISession session = NHibernateProvider.GetSession();
+            ITransaction transaction = session.BeginTransaction();
             //ProductRepository myp = new ProductRepository(NHibernateProvider.GetSession());
            // var tx =session.BeginTransaction();
             // session.SaveOrUpdate(new Product("1.3Mpx Camera", "Bulet Camera", 90, 25, "No Description", true));
@@ -30,11 +31,14 @@ namespace MyProject
            // myp.Save(new Product("1.3Mpx Camera", "Bulet Camera", 90, 25, "No Description", true));
           
            // myp.Delete(x);
-           User me = new User();
-           var cart = new Cart();
-            me.AddCart(cart);
-          session.SaveOrUpdate(me);
-
+           //User me = new User();
+           //var cart = new Cart();
+           // me.AddCart(cart);
+            
+          //session.SaveOrUpdate(me);
+            var usertodelete =session.Get<User>(6);
+            session.Delete(usertodelete);
+            transaction.Commit();
 
             //var connectionString = ConfigurationManager.ConnectionStrings["SQL"].ToString();
             ////System.Console.WriteLine(connectionString);

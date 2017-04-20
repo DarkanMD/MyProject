@@ -22,7 +22,7 @@ namespace MyProject
         public virtual int CartID { get; set; }
         public virtual User User { get; set; }
 
-        public virtual List<CartProduct> CartProducts { get; set; }
+        public virtual IList<CartProduct> CartProducts { get; set; }
 
         public virtual decimal GrandTotal {
             get
@@ -36,15 +36,15 @@ namespace MyProject
             }
         }
 
-        public virtual void AddCartProduct(CartProduct product)
-        {
-            if (!CartProducts.Contains(product)) { CartProducts.Add(product); }
-            else
-            {
-                var index = CartProducts.FindIndex(x => x == product);
-                CartProducts[index].Quantity += product.Quantity;
-            }
-        }
+        //public virtual void AddCartProduct(CartProduct product)
+        //{
+        //    if (!CartProducts.Contains(product)) { CartProducts.Add(product); }
+        //    else
+        //    {
+        //        var index = CartProducts.FindIndex(x => x == product);
+        //        CartProducts[index].Quantity += product.Quantity;
+        //    }
+        //}
 
         public virtual void RemoveCartProduct(CartProduct product)
         {
