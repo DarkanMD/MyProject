@@ -11,19 +11,19 @@ namespace MyProject
     {
         public User()
         {
-                Carts = new List<Cart>();
+                Orders = new List<Order>();
         }
 
-        public User(string name, string addres, string email, string pass, byte role, List<Cart> carts) : this()
+        public User(string name, string addres, string email, string pass, byte role, List<Order> orders) : this()
         {
             UserName = name;
             UserAddress = addres;
             UserEmailAddress = email;
             UserPassword = pass;
             UserRole = role;
-            Carts = carts;
+            Orders = orders;
         }
-        public virtual IList<Cart> Carts { get; set; }
+        public virtual IList<Order> Orders { get; set; }
 
         public virtual int UserID { get;  set; }
 
@@ -37,10 +37,10 @@ namespace MyProject
 
         public virtual byte UserRole { get;  set; }
 
-        public virtual void AddCart(Cart cart)
+        public virtual void AddOrder(Order order)
         {
-            this.Carts.Add(cart);
-            cart.User = this;
+            this.Orders.Add(order);
+            order.User = this;
         }
 
     }
@@ -50,7 +50,7 @@ namespace MyProject
         public UserMap()
         {
             Id(x => x.UserID);
-            HasMany(x => x.Carts).Inverse().Cascade.AllDeleteOrphan();
+            HasMany(x => x.Orders).Inverse().Cascade.AllDeleteOrphan();
             Map(x => x.UserName);
             Map(x => x.UserAddress);
             Map(x => x.UserEmailAddress);

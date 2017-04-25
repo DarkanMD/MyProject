@@ -9,27 +9,29 @@ using FluentNHibernate.Mapping;
 
 namespace MyProject
 {
-    public class CartProduct
+    public class OrderProduct
     {
         //ctor for read
-        public CartProduct()
+        public OrderProduct()
         {
                     
         }
-        public CartProduct(int id, Product product, int quantity)
+        public OrderProduct(int id, Product product, int quantity)
         {
-            CartProductId = id;
+            OrderProductId = id;
             Product = product;
             Quantity = quantity;
         }
         //ctor for create
-        public CartProduct(Product product, int quantity)
+        public OrderProduct(Product product, int quantity)
         {
             Product = product;
             Quantity = quantity;
         }
-        public virtual int CartProductId { get; set; }
+        public virtual int OrderProductId { get; set; }
         public virtual Product Product { get; set; }
+
+        public virtual Order Order { get; set; }
         public virtual int Quantity { get; set; }
         public virtual decimal Subtotal
         {
@@ -41,16 +43,16 @@ namespace MyProject
 
         public override bool Equals(object obj)
         {
-            var product = (CartProduct)obj;
+            var product = (OrderProduct)obj;
             return this.Product.ProductId == product.Product.ProductId ? true : false;
         }
     }
 
-    public class CartProductMap : ClassMap<CartProduct>
+    public class OrderProductMap : ClassMap<OrderProduct>
     {
-        public CartProductMap()
+        public OrderProductMap()
         {
-            Id(x => x.CartProductId);
+            Id(x => x.OrderProductId);
             References(x => x.Product);
             Map(x => x.Quantity);
         }

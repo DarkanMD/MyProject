@@ -18,27 +18,51 @@ namespace MyProject
     {
         static void Main(string[] args)
         {
+            // NHibernateProvider.GetSession();
+
             ISession session = NHibernateProvider.GetSession();
-            ITransaction transaction = session.BeginTransaction();
-            //ProductRepository myp = new ProductRepository(NHibernateProvider.GetSession());
-           // var tx =session.BeginTransaction();
+            //ITransaction transaction = session.BeginTransaction();
+            //OrderRepository orderRep = new OrderRepository(NHibernateProvider.GetSession());
+            //var x = orderRep.Get(1);
+            //Console.WriteLine(x.ToString());
+         //  ProductRepository myp = new ProductRepository(NHibernateProvider.GetSession());
+             var tx =session.BeginTransaction();
             // session.SaveOrUpdate(new Product("1.3Mpx Camera", "Bulet Camera", 90, 25, "No Description", true));
-           // var testitem = session.Get<CartProduct>(1);
-           // Console.WriteLine($"{testitem.CartProductId} {testitem.Product.ProductName} {testitem.Quantity}(Price{testitem.Product.ProductPrice}) {testitem.Subtotal}");
-          //  session.SaveOrUpdate(new CartProduct(testitem,10));
-           // tx.Commit();
-       
-           // myp.Save(new Product("1.3Mpx Camera", "Bulet Camera", 90, 25, "No Description", true));
-          
-           // myp.Delete(x);
-           //User me = new User();
-           //var cart = new Cart();
-           // me.AddCart(cart);
-            
-          //session.SaveOrUpdate(me);
-            var usertodelete =session.Get<User>(6);
-            session.Delete(usertodelete);
-            transaction.Commit();
+            // var testitem = session.Get<CartProduct>(1);
+            // Console.WriteLine($"{testitem.CartProductId} {testitem.Product.ProductName} {testitem.Quantity}(Price{testitem.Product.ProductPrice}) {testitem.Subtotal}");
+            //  session.SaveOrUpdate(new CartProduct(testitem,10));
+            // tx.Commit();
+
+            // myp.Save(new Product("1.3Mpx Camera", "Bulet Camera", 90, 25, "No Description", true));
+
+            // myp.Delete(x);
+
+            var result =session.QueryOver<User>()
+                .List<User>();
+            foreach (var item in result)
+            {
+                Console.WriteLine($"{item.UserID} ");
+                tx.Begin();
+                session.Delete(item);
+                tx.Commit();
+            }
+            //var me = new User();
+            //var order = new Order();
+            //var orderproduct1 = new OrderProduct();
+            //var orderproduct2 = new OrderProduct();
+
+
+            //order.AddOrderProduct(orderproduct1);
+            //order.AddOrderProduct(orderproduct2);
+
+            //me.AddOrder(order);
+
+            //session.SaveOrUpdate(me);
+
+            //session.SaveOrUpdate(me);
+            //var usertodelete =session.Get<User>(6);
+            //session.Delete(usertodelete);
+            //transaction.Commit();
 
             //var connectionString = ConfigurationManager.ConnectionStrings["SQL"].ToString();
             ////System.Console.WriteLine(connectionString);
@@ -48,7 +72,7 @@ namespace MyProject
             ////connection.ConnectionString = connectionString.ToString();
 
             //using (SqlConnection connection = new SqlConnection(connectionString))
-            //{
+            //{`
             //    connection.Open();
 
             //    string com = @"CREATE TABLE Users

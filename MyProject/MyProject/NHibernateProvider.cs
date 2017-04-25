@@ -31,8 +31,8 @@ namespace MyProject
             var configuration = Fluently.Configure()
                 .Database(MsSqlConfiguration.MsSql2012.ConnectionString(ConnectionStringName))
                 .Mappings(x => x.FluentMappings.AddFromAssembly(typeof(ProductMap).Assembly))
-               // .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true));
-                .ExposeConfiguration(CreateSchema);
+               .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true));
+                //.ExposeConfiguration(CreateSchema);
 
             return configuration.BuildSessionFactory();
         }
@@ -40,9 +40,9 @@ namespace MyProject
         private static void CreateSchema(Configuration cfg)
         {
             var schemaExport = new SchemaExport(cfg);
-            schemaExport.Execute(false, false, false);
-         //   schemaExport.Drop(false, true);
-          //  schemaExport.Create(false, true);
+          //  schemaExport.Execute(false, false, false);
+            schemaExport.Drop(false, true);
+            schemaExport.Create(false, true);
         }
     }
 }
