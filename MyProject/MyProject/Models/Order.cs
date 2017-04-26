@@ -8,18 +8,13 @@ using FluentNHibernate.Mapping;
 
 namespace MyProject
 {
-    public class Order
+    public class Order : Entity
     {
         public Order()
         {
             OrderProducts = new List<OrderProduct>();
         }
 
-        public Order(List<OrderProduct> orderProduct)
-        {
-            OrderProducts = orderProduct;
-        }
-        public virtual int OrderID { get; set; }
         public virtual User User { get; set; }
 
         public virtual IList<OrderProduct> OrderProducts { get; set; }
@@ -36,10 +31,10 @@ namespace MyProject
             }
         }
 
-        public virtual void AddOrderProduct(OrderProduct product)
+        public virtual void AddOrderProduct(OrderProduct orderProduct)
         {
-            this.OrderProducts.Add(product);
-            product.Order = this;
+            this.OrderProducts.Add(orderProduct);
+            orderProduct.Order = this;
         }
     }
 
@@ -47,7 +42,7 @@ namespace MyProject
     {
         public OrderMap()
         {
-            Id(x => x.OrderID);
+            Id(x => x.Id);
             References(x => x.User);
             HasMany(x => x.OrderProducts).Inverse().Cascade.AllDeleteOrphan();
         }

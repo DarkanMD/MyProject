@@ -7,25 +7,14 @@ using FluentNHibernate.Mapping;
 
 namespace MyProject
 {
-    public class User
+    public class User : Entity
     {
         public User()
         {
                 Orders = new List<Order>();
         }
 
-        public User(string name, string addres, string email, string pass, byte role, List<Order> orders) : this()
-        {
-            UserName = name;
-            UserAddress = addres;
-            UserEmailAddress = email;
-            UserPassword = pass;
-            UserRole = role;
-            Orders = orders;
-        }
         public virtual IList<Order> Orders { get; set; }
-
-        public virtual int UserID { get;  set; }
 
         public virtual string UserName { get;  set; }
 
@@ -49,7 +38,7 @@ namespace MyProject
     {
         public UserMap()
         {
-            Id(x => x.UserID);
+            Id(x => x.Id);
             HasMany(x => x.Orders).Inverse().Cascade.AllDeleteOrphan();
             Map(x => x.UserName);
             Map(x => x.UserAddress);

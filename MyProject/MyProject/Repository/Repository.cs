@@ -4,19 +4,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Ninject;
 
 namespace MyProject
 {
-    class Repository<T> : IRepository<T> where T:class
+    public class Repository<T> : IRepository<T> where T : Entity
     {
         internal readonly ISession _session;
 
-        public Repository(ISession session)
+        public Repository()
         {
-            _session = session;
-
+            var kernel = new StandardKernel(Bindings.Instance);
+            _session = kernel.Get<ISession>();
         }
-        public void Save<T1>(T1 entity)
+
+        public void Save(T entity)
         {
             using (ITransaction transaction = _session.BeginTransaction())
             {
@@ -25,7 +27,7 @@ namespace MyProject
             }
         }
 
-        public void Delete<T1>(T1 entity)
+        public void Delete(T entity)
         {
             using (ITransaction transaction = _session.BeginTransaction())
             {
@@ -34,9 +36,9 @@ namespace MyProject
             }
         }
 
-        //public T1 Get<T1>(long id)
-        //{
-        //    return _session.QueryOver<T>().Where(c => c.ProductId == id).SingleOrDefault();
-        //}
+        public T Get(long id)
+        {
+            return _session.Get<T>(id);
+        }
     }
 }

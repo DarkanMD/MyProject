@@ -18,15 +18,38 @@ namespace MyProject
     {
         static void Main(string[] args)
         {
-            // NHibernateProvider.GetSession();
+           //  NHibernateProvider.GetSession();
 
             ISession session = NHibernateProvider.GetSession();
-            //ITransaction transaction = session.BeginTransaction();
-            //OrderRepository orderRep = new OrderRepository(NHibernateProvider.GetSession());
+         //   ITransaction transaction = session.BeginTransaction();
+            //OrderRepository orderRep = new OrderRepository();
+
+            //var list = orderRep.AllCustomerOrderProductsByUserId(3);
+            //foreach (var item in list)
+            //{
+            //    Console.WriteLine($"{item} ");
+            //}
+
+
+            var sss = session.QueryOver<Order>()
+                .Where(x=>x.User.Id==3)
+                //.JoinQueryOver(x=>x.Orders)
+                .JoinQueryOver<OrderProduct>(x=>x.OrderProducts)
+              // .Select(x=>x)
+             // .TransformUsing(Transformers.AliasToBean<User>())
+             .Select(x=>x.OrderProducts)
+            .List<OrderProduct>();
+
+            foreach (var item in sss)
+            {
+                Console.WriteLine($"{item.Id}");
+            }
+
+
             //var x = orderRep.Get(1);
             //Console.WriteLine(x.ToString());
-         //  ProductRepository myp = new ProductRepository(NHibernateProvider.GetSession());
-             var tx =session.BeginTransaction();
+            //  ProductRepository myp = new ProductRepository(NHibernateProvider.GetSession());
+            // var tx =session.BeginTransaction();
             // session.SaveOrUpdate(new Product("1.3Mpx Camera", "Bulet Camera", 90, 25, "No Description", true));
             // var testitem = session.Get<CartProduct>(1);
             // Console.WriteLine($"{testitem.CartProductId} {testitem.Product.ProductName} {testitem.Quantity}(Price{testitem.Product.ProductPrice}) {testitem.Subtotal}");
@@ -37,16 +60,17 @@ namespace MyProject
 
             // myp.Delete(x);
 
-            var result =session.QueryOver<User>()
-                .List<User>();
-            foreach (var item in result)
-            {
-                Console.WriteLine($"{item.UserID} ");
-                tx.Begin();
-                session.Delete(item);
-                tx.Commit();
-            }
+            //var result =session.QueryOver<User>()
+            //    .List<User>();
+            //foreach (var item in result)
+            //{
+            //    Console.WriteLine($"{item.UserID} ");
+            //    tx.Begin();
+            //    session.Delete(item);
+            //    tx.Commit();
+            //}
             //var me = new User();
+
             //var order = new Order();
             //var orderproduct1 = new OrderProduct();
             //var orderproduct2 = new OrderProduct();
@@ -54,13 +78,13 @@ namespace MyProject
 
             //order.AddOrderProduct(orderproduct1);
             //order.AddOrderProduct(orderproduct2);
+            // orderRep.Save(order);
 
             //me.AddOrder(order);
-
             //session.SaveOrUpdate(me);
 
-            //session.SaveOrUpdate(me);
-            //var usertodelete =session.Get<User>(6);
+
+            //var usertodelete = session.Get<User>(1);
             //session.Delete(usertodelete);
             //transaction.Commit();
 

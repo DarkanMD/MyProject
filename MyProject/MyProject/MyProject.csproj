@@ -97,25 +97,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="AbstractProduct.cs" />
-    <Compile Include="OrderProduct.cs" />
-    <Compile Include="IProductRepository.cs" />
-    <Compile Include="IRepository.cs" />
-    <Compile Include="NHibernateProvider.cs" />
-    <Compile Include="OrderRepository.cs" />
+    <Compile Include="Infrastructure\Bindings.cs" />
+    <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\OrderProduct.cs" />
+    <Compile Include="Models\PagedEntity.cs" />
+    <Compile Include="Repository\IProductRepository.cs" />
+    <Compile Include="Repository\IRepository.cs" />
+    <Compile Include="Infrastructure\NHibernateProvider.cs" />
+    <Compile Include="Repository\OrderRepository.cs" />
     <Compile Include="PagedResult.cs" />
-    <Compile Include="Product.cs" />
-    <Compile Include="ProductRepository.cs" />
+    <Compile Include="Models\Product.cs" />
+    <Compile Include="Repository\ProductRepository.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Order.cs" />
+    <Compile Include="Models\Order.cs" />
     <Compile Include="Properties\Settings.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTimeSharedInput>True</DesignTimeSharedInput>
       <DependentUpon>Settings.settings</DependentUpon>
     </Compile>
-    <Compile Include="Repository.cs" />
-    <Compile Include="User.cs" />
+    <Compile Include="Repository\Repository.cs" />
+    <Compile Include="Models\User.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

@@ -8,7 +8,7 @@ using NHibernate.Driver;
 
 namespace MyProject
 {
-    public class Product
+    public class Product : Entity
     {
 
         public Product()
@@ -16,18 +16,18 @@ namespace MyProject
                 
         }
         //ctor for reading(with id)
-        public Product(int id, string name, string category, decimal price, int stock, string description,
-            bool visibility)
-        {
-            ProductId = id;
-            ProductName = name;
-            ProductCategory = category;
-            ProductPrice = price;
-            ProductStock = stock;
-            ProductDescription = description;
-            ProductVisibility = visibility;
+        //public Product(int id, string name, string category, decimal price, int stock, string description,
+        //    bool visibility)
+        //{
+        //    ProductId = id;
+        //    ProductName = name;
+        //    ProductCategory = category;
+        //    ProductPrice = price;
+        //    ProductStock = stock;
+        //    ProductDescription = description;
+        //    ProductVisibility = visibility;
 
-        }
+        //}
 
         //ctor for creating products(no id)
         public Product(string name, string category, decimal price, int stock, string description, bool visibility)
@@ -49,7 +49,7 @@ namespace MyProject
         //public string ProductDescription { get; private set; }
         //public bool ProductVisibility { get; private set; }
 
-        public virtual int ProductId { get; set; }
+      //  public virtual int ProductId { get; set; }
         public virtual string ProductName { get; set; }
         public virtual string ProductCategory { get; set; }
         public virtual decimal ProductPrice { get; set; }
@@ -63,7 +63,7 @@ namespace MyProject
 
         public override string ToString()
         {
-            return $"{ProductId} {ProductName} {ProductCategory} {ProductPrice} {ProductStock} {ProductDescription} {ProductVisibility}";
+            return $"{Id} {ProductName} {ProductCategory} {ProductPrice} {ProductStock} {ProductDescription} {ProductVisibility}";
         }
     }
 
@@ -72,7 +72,7 @@ namespace MyProject
     {
         public ProductMap()
         {
-            Id(x => x.ProductId);
+            Id(x => x.Id);
             Map(x => x.ProductName);
             Map(x => x.ProductCategory);
             Map(x => x.ProductPrice);

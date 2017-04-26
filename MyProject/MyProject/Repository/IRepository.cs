@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 
 namespace MyProject
 {
-    public interface IRepository<T> where T : class
+    public interface IRepository<T> where T : Entity
     {
-        void Save<T>(T entity);
+        void Save(T entity);
 
-        void Delete<T>(T entity);
+        void Delete(T entity);
 
-        //T Get<T>(long id);
+        T Get(long id);
 
     }
 }
