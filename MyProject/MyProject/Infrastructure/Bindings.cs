@@ -31,7 +31,6 @@ namespace MyProject
         public override void Load()
         {
             Bind<ISession>().ToMethod(x => NHibernateProvider.GetSession());
-
         }
     }
 }

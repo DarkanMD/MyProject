@@ -8,6 +8,7 @@ using System.Data.SqlClient;
 using NHibernate.Util;
 using FluentNHibernate.Cfg;
 using FluentNHibernate.Cfg.Db;
+using MyProject.Repository;
 using NHibernate;
 using NHibernate.Tool.hbm2ddl;
 using NHibernate.Transform;
@@ -20,8 +21,23 @@ namespace MyProject
         {
            //  NHibernateProvider.GetSession();
 
-            ISession session = NHibernateProvider.GetSession();
-         //   ITransaction transaction = session.BeginTransaction();
+            UserRepository UserRep = new UserRepository();
+            var user = UserRep.GetAllUsers();
+            foreach (var item in user)
+            {
+                Console.WriteLine(item.Id);
+            }
+
+              ISession session = NHibernateProvider.GetSession();
+            ITransaction transaction = session.BeginTransaction();
+
+            var x = session.QueryOver<Order>().Where(y =>y.Id == 13).SingleOrDefault();
+            Console.WriteLine(x.Id);
+            session.Delete(x);
+            transaction.Commit();
+
+
+             
             //OrderRepository orderRep = new OrderRepository();
 
             //var list = orderRep.AllCustomerOrderProductsByUserId(3);
@@ -30,20 +46,32 @@ namespace MyProject
             //    Console.WriteLine($"{item} ");
             //}
 
+            //var sss = session.QueryOver<OrderProduct>()
+            //    .JoinQueryOver(x=>x.Order)
+            //    .Where(x=>x.User.Id==3)
+            //    //.JoinQueryOver(x=>x.Orders)
+            //  //  .JoinQueryOver(x=>x.OrderProducts)
+            // //  .Select(x=>x)
+            // // .TransformUsing(Transformers.AliasToBean<User>())
+            // .SelectList(list=>list
+            // .Select(x=>x.Order.Id)
+            // .Select(x=>x.Id)
+            // )
+            //.List<object[]>();
 
-            var sss = session.QueryOver<Order>()
-                .Where(x=>x.User.Id==3)
-                //.JoinQueryOver(x=>x.Orders)
-                .JoinQueryOver<OrderProduct>(x=>x.OrderProducts)
-              // .Select(x=>x)
-             // .TransformUsing(Transformers.AliasToBean<User>())
-             .Select(x=>x.OrderProducts)
-            .List<OrderProduct>();
+            //foreach (var item in sss)
+            //{
+            //    Console.WriteLine($"{item[0]} {item[1]}");
+            //}
 
-            foreach (var item in sss)
-            {
-                Console.WriteLine($"{item.Id}");
-            }
+            //var userWithOrders = session.QueryOver<User>()
+            //    .JoinQueryOver(x => x.Orders)
+            //    .List<User>();
+
+            //foreach (var item in userWithOrders)
+            //{
+            //    Console.WriteLine($"{item.Id}");
+            //}
 
 
             //var x = orderRep.Get(1);
@@ -72,15 +100,23 @@ namespace MyProject
             //var me = new User();
 
             //var order = new Order();
+            //var order2 = new Order();
+
             //var orderproduct1 = new OrderProduct();
             //var orderproduct2 = new OrderProduct();
+            //var orderproduct3 = new OrderProduct();
+            //var orderproduct4 = new OrderProduct();
 
 
             //order.AddOrderProduct(orderproduct1);
             //order.AddOrderProduct(orderproduct2);
-            // orderRep.Save(order);
+
+            //order2.AddOrderProduct(orderproduct3);
+            //order2.AddOrderProduct(orderproduct4);
+
 
             //me.AddOrder(order);
+            //me.AddOrder(order2);
             //session.SaveOrUpdate(me);
 
 
