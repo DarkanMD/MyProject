@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace MyProject
 {
-    class Product
+    internal class Product
     {
         //ctor for reading(with id)
         public Product(int id, string name,string category,decimal price, int stock, string description, bool visibility)

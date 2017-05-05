@@ -36,7 +36,7 @@ namespace MyProject
             }
         }
 
-        public T Get(long id)
+        public T Get(int id)
         {
             return _session.Get<T>(id);
         }

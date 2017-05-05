@@ -7,63 +7,28 @@ using FluentNHibernate.Mapping;
 using NHibernate.Driver;
 
 namespace MyProject
-{
+   {
+       public enum Type { External, Internal }
     public class Product : Entity
     {
 
         public Product()
         {
-                
         }
-        //ctor for reading(with id)
-        //public Product(int id, string name, string category, decimal price, int stock, string description,
-        //    bool visibility)
-        //{
-        //    ProductId = id;
-        //    ProductName = name;
-        //    ProductCategory = category;
-        //    ProductPrice = price;
-        //    ProductStock = stock;
-        //    ProductDescription = description;
-        //    ProductVisibility = visibility;
-
-        //}
-
-        //ctor for creating products(no id)
-        public Product(string name, string category, decimal price, int stock, string description, bool visibility)
-        {
-
-            ProductName = name;
-            ProductCategory = category;
-            ProductPrice = price;
-            ProductStock = stock;
-            ProductDescription = description;
-            ProductVisibility = visibility;
-
-        }
-        //public int ProductID { get; private set; }
-        //public string ProductName { get; private set; }
-        //public string ProductCategory { get; private set; }
-        //public decimal ProductPrice { get; private set; }
-        //public int ProductStock { get; private set; }
-        //public string ProductDescription { get; private set; }
-        //public bool ProductVisibility { get; private set; }
-
-      //  public virtual int ProductId { get; set; }
         public virtual string ProductName { get; set; }
-        public virtual string ProductCategory { get; set; }
+        public virtual ProductCategory ProductCategory { get; set; }
+
+        public virtual int ProductIrRange { get; set; }
+
+        public virtual Type Type { get; set; }
         public virtual decimal ProductPrice { get; set; }
         public virtual int ProductStock { get; set; }
         public virtual string ProductDescription { get; set; }
         public virtual bool ProductVisibility { get; set; }
-        public virtual decimal Cost()
-        {
-            return ProductPrice;
-        }
 
         public override string ToString()
         {
-            return $"{Id} {ProductName} {ProductCategory} {ProductPrice} {ProductStock} {ProductDescription} {ProductVisibility}";
+            return $"{Id} {ProductName} {ProductCategory.CategoryName} {ProductPrice} {ProductStock} {ProductDescription} {ProductVisibility}";
         }
     }
 
@@ -74,7 +39,9 @@ namespace MyProject
         {
             Id(x => x.Id);
             Map(x => x.ProductName);
-            Map(x => x.ProductCategory);
+            Map(x => x.ProductIrRange);
+            Map(x => x.Type);
+            References(x => x.ProductCategory);
             Map(x => x.ProductPrice);
             Map(x => x.ProductStock);
             Map(x => x.ProductDescription);

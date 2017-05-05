@@ -99,8 +99,10 @@
   <ItemGroup>
     <Compile Include="Infrastructure\Bindings.cs" />
     <Compile Include="Models\Entity.cs" />
+    <Compile Include="Models\OrderDetailRow.cs" />
     <Compile Include="Models\OrderProduct.cs" />
     <Compile Include="Models\PagedEntity.cs" />
+    <Compile Include="Models\ProductCategory.cs" />
     <Compile Include="Repository\IProductRepository.cs" />
     <Compile Include="Repository\IRepository.cs" />
     <Compile Include="Infrastructure\NHibernateProvider.cs" />

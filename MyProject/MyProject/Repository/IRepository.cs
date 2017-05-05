@@ -12,7 +12,7 @@ namespace MyProject
 
         void Delete(T entity);
 
-        T Get(long id);
+        T Get(int id);
 
     }
 }
