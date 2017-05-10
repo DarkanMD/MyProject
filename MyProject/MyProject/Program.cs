@@ -1,18 +1,8 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.Common;
-using System.Data.SqlClient;
-using NHibernate.Util;
-using FluentNHibernate.Cfg;
-using FluentNHibernate.Cfg.Db;
+﻿using NHibernate;
+using System.Linq;
+using MyProject.Infrastructure;
 using MyProject.Repository;
-using NHibernate;
-using NHibernate.Tool.hbm2ddl;
-using NHibernate.Transform;
-using NHibernate.Criterion;
+using System;
 
 namespace MyProject
 {
@@ -23,30 +13,48 @@ namespace MyProject
             //  NHibernateProvider.GetSession();
 
             UserRepository UserRep = new UserRepository();
-            //var user = UserRep.GetAllUsers();
-            //foreach (var item in user)
-            //{
-            //    Console.WriteLine(item.Id);
-            //}
-
-
-
+            Repository<ProductCategory> pc = new Repository<ProductCategory>();
+       
             ISession session = NHibernateProvider.GetSession();
             ITransaction transaction = session.BeginTransaction();
+
+            var catRepositoryegoryrep = new Repository<ProductCategory>();
+            var listCategorys = catRepositoryegoryrep.GetAll();
+            
+            foreach (var item in listCategorys)
+            {
+                Console.WriteLine(item.Id +" "+item.CategoryName);
+            }
 
             //var x = session.QueryOver<Order>().Where(y =>y.Id == 13).SingleOrDefault();
             //Console.WriteLine(x.Id);
             //session.Delete(x);
             //transaction.Commit();
-            ProductCategory productCategory = new ProductCategory() {CategoryName = "Dome"};
-            session.SaveOrUpdate(productCategory);
-            productCategory = new ProductCategory() { CategoryName = "Bulet" };
-            session.SaveOrUpdate(productCategory);
-            productCategory = new ProductCategory() { CategoryName = "PTZ" };
-            session.SaveOrUpdate(productCategory);
-            productCategory = new ProductCategory() { CategoryName = "SPY" };
-            session.SaveOrUpdate(productCategory);
-            transaction.Commit();
+            //ProductCategory productCategory = new ProductCategory() {CategoryName = "Dome"};
+            //session.SaveOrUpdate(productCategory);
+            //productCategory = new ProductCategory() { CategoryName = "Bulet" };
+            //session.SaveOrUpdate(productCategory);
+            //productCategory = new ProductCategory() { CategoryName = "PTZ" };
+            //session.SaveOrUpdate(productCategory);
+            //productCategory = new ProductCategory() { CategoryName = "SPY" };
+            //session.SaveOrUpdate(productCategory);
+            //transaction.Commit();
+
+
+            //var listCaterory = pc.GetAll();
+
+            //Product p1 = new Product();
+            //p1.ProductCategory = listCaterory.Where(x => x.CategoryName == "Bulet").SingleOrDefault();
+            //p1.ProductCategory.AddProduct(p1);
+            //p1.ProductName = "Camera 1";
+            //p1.ProductVisibility = false;
+            //p1.ProductIrRange = 10;
+            //p1.ProductPrice = 120;
+            //p1.Type = Type.External;
+            //p1.ProductStock = 10;
+            //p1.ProductDescription = "Nice camera";
+            //session.SaveOrUpdate(p1);
+            //transaction.Commit();
 
             //    OrderRepository orderRep = new OrderRepository();
 
@@ -122,7 +130,7 @@ namespace MyProject
             //me.AddOrder(order2);
 
             //UserRep.Save(me);
-            Console.ReadLine();
+            //  Console.ReadLine();
         }
     }
 }
