@@ -46,7 +46,8 @@ namespace MyProject.Presentation.MVC.Controllers
             ViewBag.IrRanges = irRanges;
             ViewBag.Types = types;
             Product product = new Product();
-
+            if (ModelState.IsValid)
+            {
                 product.ProductName = productModel.ProductName;
                 product.ProductDescription = productModel.ProductDescription;
                 product.ProductIrRange = productModel.ProductIrRange;
@@ -56,7 +57,7 @@ namespace MyProject.Presentation.MVC.Controllers
                 product.ProductStock = productModel.ProductStock;
                 product.Type = productModel.Type;
                 product.ProductVisibility = productModel.ProductVisibility;
-  
+            }
             _productRepository.Save(product);
 
             return View(productModel);
