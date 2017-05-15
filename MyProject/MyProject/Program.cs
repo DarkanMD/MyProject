@@ -12,25 +12,27 @@ namespace MyProject
         {
             //  NHibernateProvider.GetSession();
 
-            UserRepository UserRep = new UserRepository();
-            Repository<ProductCategory> pc = new Repository<ProductCategory>();
-       
-            ISession session = NHibernateProvider.GetSession();
-            ITransaction transaction = session.BeginTransaction();
+            // UserRepository UserRep;
+            //NHibernateProvider provider = new NHibernateProvider();
+            //var session = provider.SessionFactory.OpenSession();
+            //Repository<ProductCategory> pc = new Repository<ProductCategory>(session);
 
-            var catRepositoryegoryrep = new Repository<ProductCategory>();
-            var listCategorys = catRepositoryegoryrep.GetAll();
-            
-            foreach (var item in listCategorys)
-            {
-                Console.WriteLine(item.Id +" "+item.CategoryName);
-            }
+               
+            //  ITransaction transaction = session.BeginTransaction();
+
+            //   var catRepositoryegoryrep = new Repository<ProductCategory>();
+            //  var listCategorys = catRepositoryegoryrep.GetAll();
+
+            //foreach (var item in listCategorys)
+            //{
+            //    Console.WriteLine(item.Id +" "+item.CategoryName);
+            //}
 
             //var x = session.QueryOver<Order>().Where(y =>y.Id == 13).SingleOrDefault();
             //Console.WriteLine(x.Id);
             //session.Delete(x);
             //transaction.Commit();
-            //ProductCategory productCategory = new ProductCategory() {CategoryName = "Dome"};
+            //ProductCategory productCategory = new ProductCategory() { CategoryName = "Dome" };
             //session.SaveOrUpdate(productCategory);
             //productCategory = new ProductCategory() { CategoryName = "Bulet" };
             //session.SaveOrUpdate(productCategory);

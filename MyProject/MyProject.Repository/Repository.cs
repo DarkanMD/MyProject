@@ -1,7 +1,7 @@
 ﻿using NHibernate;
 using System.Collections.Generic;
 using MyProject.Domain.Model;
-using MyProject.Infrastructure;
+//using MyProject.Infrastructure;
 using Ninject;
 
 namespace MyProject.Repository
@@ -10,10 +10,9 @@ namespace MyProject.Repository
     {
         internal readonly ISession _session;
 
-        public Repository()
+        public Repository(ISession session)
         {
-            var kernel = new StandardKernel(Bindings.Instance);
-            _session = kernel.Get<ISession>();
+           _session = session;
         }
 
         public void Save(T entity)
@@ -36,13 +35,22 @@ namespace MyProject.Repository
 
         public T Get(int id)
         {
-            return _session.Get<T>(id);
+            using (ITransaction transaction = _session.BeginTransaction())
+            {
+                return _session.Get<T>(id);
+                transaction.Commit();
+
+            }
         }
 
         public IList<T> GetAll()
         {
-            return _session.QueryOver<T>()
-                .List<T>();
+            using (ITransaction transaction = _session.BeginTransaction())
+            {
+                return _session.QueryOver<T>()
+                    .List<T>();
+                transaction.Commit();
+            }
         }
     }
 }

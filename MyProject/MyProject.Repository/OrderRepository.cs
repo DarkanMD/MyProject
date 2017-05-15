@@ -1,12 +1,16 @@
 ﻿using System.Collections.Generic;
 using MyProject.Domain.Model.Rows;
 using MyProject.Models;
+using NHibernate;
 using NHibernate.Transform;
 
 namespace MyProject.Repository
 {
     public class OrderRepository : Repository<Order> 
     {
+        public OrderRepository(ISession session) : base(session)
+        {
+        }
 
         public int UserIdByOrderId(int id)
         {

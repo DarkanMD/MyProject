@@ -83,6 +83,14 @@
       <Project>{84E1D63C-01B9-4C4F-ABCC-6E4B1CE1B476}</Project>
       <Name>MyProject.Domain.Model</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MyProject.Repository.Interface\MyProject.Repository.Interface.csproj">
+      <Project>{FF6DA961-18D7-4ECE-A14E-BF0648AEC9D2}</Project>
+      <Name>MyProject.Repository.Interface</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\MyProject.Repository\MyProject.Repository.csproj">
+      <Project>{17c2ba10-29f3-4c7e-976f-612b5efc29d8}</Project>
+      <Name>MyProject.Repository</Name>
+    </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -1,5 +1,8 @@
-﻿using NHibernate;
+﻿using MyProject;
+using MyProject.Repository;
+using NHibernate;
 using Ninject.Modules;
+
 
 namespace MyProject.Infrastructure
 {
@@ -17,15 +20,15 @@ namespace MyProject.Infrastructure
 
         public static Bindings Instance
         {
-            get
-            {
-                return instance;
-            }
+            get { return instance; }
         }
 
         public override void Load()
         {
-            Bind<ISession>().ToMethod(x => NHibernateProvider.GetSession());
+            //var nhibernate = new NHibernateProvider();
+            //Bind<ISession>().ToMethod(x => nhibernate.GetSession());
+            //Bind < typeof(IRepository<ProductCategory>()).To(Repository<ProductCategory>());
+            //Bind(typeof(IRepository<ProductCategory>)).To(typeof(Repository<ProductCategory>));
         }
     }
 }

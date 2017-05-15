@@ -2,7 +2,7 @@
 
 namespace MyProject
    {
-       public enum CameraType { External, Internal }
+       public enum CameraType {External=1, Internal }
     public class Product : Entity
     {
 
@@ -16,6 +16,8 @@ namespace MyProject
 
         public virtual CameraType Type { get; set; }
 
+        public virtual int ProductMatrixResolution { get; set; }
+
         public virtual decimal ProductPrice { get; set; }
 
         public virtual int ProductStock { get; set; }
@@ -26,7 +28,7 @@ namespace MyProject
 
         public override string ToString()
         {
-            return $"{Id} {ProductName} {ProductCategory.CategoryName} {ProductPrice} {ProductStock} {ProductDescription} {ProductVisibility}";
+            return $"{Id} {ProductName} {ProductCategory.CategoryName} {ProductIrRange} {ProductMatrixResolution} {ProductPrice} {ProductStock} {ProductDescription} {ProductVisibility}";
         }
     }
    }

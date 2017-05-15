@@ -63,10 +63,6 @@
       <Project>{84E1D63C-01B9-4C4F-ABCC-6E4B1CE1B476}</Project>
       <Name>MyProject.Domain.Model</Name>
     </ProjectReference>
-    <ProjectReference Include="..\MyProject.Infrastructure\MyProject.Infrastructure.csproj">
-      <Project>{88ce9210-fe7f-4dee-ae51-2e0019b2e88f}</Project>
-      <Name>MyProject.Infrastructure</Name>
-    </ProjectReference>
     <ProjectReference Include="..\MyProject.Repository.Interface\MyProject.Repository.Interface.csproj">
       <Project>{FF6DA961-18D7-4ECE-A14E-BF0648AEC9D2}</Project>
       <Name>MyProject.Repository.Interface</Name>

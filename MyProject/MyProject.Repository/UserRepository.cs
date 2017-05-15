@@ -1,11 +1,16 @@
 ﻿using NHibernate.Transform;
 using System.Collections.Generic;
 using NHibernate.Criterion;
+using NHibernate;
 
 namespace MyProject.Repository
 {
-    public class UserRepository  :Repository<User>
+    public class UserRepository : Repository<User>
     {
+        public UserRepository(ISession session) : base(session)
+        {
+        }
+
         public object[] GetUserWithMaxOrders()
         {
             User user = null;
