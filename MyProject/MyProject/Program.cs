@@ -3,6 +3,8 @@ using System.Linq;
 using MyProject.Infrastructure;
 using MyProject.Repository;
 using System;
+using MyProject.Repository.Interface;
+using NHibernate.Criterion;
 
 namespace MyProject
 {
@@ -10,6 +12,15 @@ namespace MyProject
     {
         static void Main(string[] args)
         {
+            var session =new NHibernateProvider();
+            IRepository<Product> myprod = new Repository<Product>(session.SessionFactory.OpenSession());
+
+            var x = myprod.GetPaged(1, 5,z=>z.ProductPrice>=150,y=>y.ProductPrice);
+            foreach (var item in x.Items)
+            {
+                Console.WriteLine(item.ToString());
+            }
+            Console.WriteLine($"Page {x.Page}/{x.Pages} Showing {(x.Page - 1)*x.PageSize+1}-{(x.Page - 1) * x.PageSize+x.PageSize}  from {x.ItemCount}");
             //  NHibernateProvider.GetSession();
 
             // UserRepository UserRep;

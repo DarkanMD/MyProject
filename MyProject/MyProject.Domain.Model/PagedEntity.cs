@@ -1,19 +1,19 @@
 ﻿using System.Collections.Generic;
+using MyProject.Domain.Model;
 
-namespace MyProject.Models
+
+namespace MyProject.Domain.Model
 {
-    public class PagedEntity<T> where T: class
+    public class PagedEntity<T> where T: Entity
     {
-        IEnumerable<T> _items;
-        int _totalCount;
-
-        public PagedEntity(IEnumerable<T> items, int totalCount)
+        public PagedEntity( )
         {
-            _items = items;
-            _totalCount = totalCount;
-        }
 
-        public IEnumerable<T> Items { get { return _items; } }
-        public int TotalCount { get { return _totalCount; } }
+        }
+        public IEnumerable<T> Items { get; set; }
+        public int Page { get; set; }
+        public int PageSize { get; set; }
+        public int ItemCount { get; set; }
+        public int Pages => (ItemCount / PageSize)%2 ==0 ? ItemCount / PageSize: ItemCount / PageSize+1;
     }
 }

@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
+using AutoMapper;
 using MyProject.Presentation.MVC.Models;
+using MyProject.Repository.Interface;
 
 namespace MyProject.Presentation.MVC.Controllers
 {
@@ -28,7 +31,15 @@ namespace MyProject.Presentation.MVC.Controllers
             return View();
         }
 
-        public ActionResult CreateProductModel()
+        public ActionResult ViewProducts()
+        {
+            var products = _productRepository.GetPaged(1, 10, x => x.ProductPrice > 149, x => x.ProductName).Items;
+
+            var result = Mapper.Map<IEnumerable<Product>,IEnumerable<ProductModel > >(products.Where(x=>x.ProductVisibility));
+            return View(result);
+
+        }
+        public ActionResult Create()
         {
 
             ProductModel productModel = new ProductModel();
@@ -40,7 +51,7 @@ namespace MyProject.Presentation.MVC.Controllers
         }
         [HttpPost]
        // [ValidateAntiForgeryToken]
-        public ActionResult CreateProductModel(ProductModel productModel)
+        public ActionResult Create(ProductModel productModel)
         {
             productModel.ProductCategorys = _categorys;
             ViewBag.IrRanges = irRanges;
@@ -48,22 +59,14 @@ namespace MyProject.Presentation.MVC.Controllers
             Product product = new Product();
             if (ModelState.IsValid)
             {
-                product.ProductName = productModel.ProductName;
-                product.ProductDescription = productModel.ProductDescription;
-                product.ProductIrRange = productModel.ProductIrRange;
-                product.ProductCategory = _rep.Get(productModel.ProductCategory);
-                product.ProductMatrixResolution = productModel.MatrixResolution;
-                product.ProductPrice = productModel.ProductPrice;
-                product.ProductStock = productModel.ProductStock;
-                product.Type = productModel.Type;
-                product.ProductVisibility = productModel.ProductVisibility;
+                product = Mapper.Map<ProductModel, Product>(productModel);
             }
             _productRepository.Save(product);
 
-            return View(productModel);
+            return View();
         }
 
-        public ActionResult EditProductModel(int id)
+        public ActionResult Edit(int id)
         {
             ProductModel productModel = new ProductModel();
             productModel.ProductCategorys = _categorys;
@@ -72,23 +75,14 @@ namespace MyProject.Presentation.MVC.Controllers
             Product product = _productRepository.Get(id);
             if (product != null)
             {
-                productModel.ProductCategory = product.ProductCategory.Id;
-                productModel.MatrixResolution = product.ProductMatrixResolution;
-                productModel.ProductDescription = product.ProductDescription;
-                productModel.ProductIrRange = product.ProductIrRange;
-                productModel.ProductName = product.ProductName;
-                productModel.ProductPrice = product.ProductPrice;
-                productModel.ProductStock = product.ProductStock;
-                productModel.ProductVisibility = product.ProductVisibility;
-                productModel.Type = product.Type;
-                productModel.Id = product.Id;
+                productModel = Mapper.Map<Product, ProductModel>(product);
             }
             return View(productModel);
         }
 
         [HttpPost]
       //  [ValidateAntiForgeryToken]
-        public ActionResult EditProductModel(ProductModel productModel)
+        public ActionResult Edit(ProductModel productModel)
         {
             productModel.ProductCategorys = _categorys;
             ViewBag.IrRanges = irRanges;
@@ -96,16 +90,8 @@ namespace MyProject.Presentation.MVC.Controllers
             Product product = _productRepository.Get(productModel.Id);
             if (ModelState.IsValid)
             {
-                product.ProductName = productModel.ProductName;
-                product.ProductDescription = productModel.ProductDescription;
-                product.ProductIrRange = productModel.ProductIrRange;
-                product.ProductCategory = _rep.Get(productModel.ProductCategory);
-                product.ProductMatrixResolution = productModel.MatrixResolution;
-                product.ProductPrice = productModel.ProductPrice;
-                product.ProductStock = productModel.ProductStock;
-                product.Type = productModel.Type;
-                product.ProductVisibility = productModel.ProductVisibility;
-               
+                product = Mapper.Map<ProductModel, Product>(productModel);
+
             }
             _productRepository.Save(product);
 

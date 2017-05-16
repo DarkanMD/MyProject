@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using MyProject.Domain.Model;
-using System.Collections;
+using System.Linq.Expressions;
+using System;
 
-namespace MyProject
+namespace MyProject.Repository.Interface
 {
     public interface IRepository<T> where T : Entity
     {
@@ -17,6 +14,8 @@ namespace MyProject
         T Get(int id);
 
         IList<T> GetAll();
+        PagedEntity<T> GetPaged(int page, int pagesize, Expression<Func<T, bool>> expression, Expression<Func<T, object>> ordered);
+        int Count();
 
     }
 }

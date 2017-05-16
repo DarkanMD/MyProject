@@ -1,0 +1,75 @@
+﻿@model IEnumerable<MyProject.Presentation.MVC.Models.ProductModel>
+
+@{
+    ViewBag.Title = "ViewProducts";
+}
+
+<h2>ViewProducts</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductName)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductDescription)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductMatrixResolution)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductIrRange)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductCategory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductPrice)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductStock)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.ProductVisibility)
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductDescription)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductMatrixResolution)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductIrRange)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductCategorys.Where(x=>x.Id==item.ProductCategory).Select(y=>y.CategoryName).SingleOrDefault())
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductPrice)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductStock)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.ProductVisibility)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>

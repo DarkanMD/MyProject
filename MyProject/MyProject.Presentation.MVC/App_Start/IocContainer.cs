@@ -4,6 +4,7 @@ using Castle.Windsor;
 using Castle.Windsor.Installer;
 using MyProject.Infrastructure;
 using MyProject.Repository;
+using MyProject.Repository.Interface;
 using NHibernate;
 
 namespace MyProject.Presentation.MVC

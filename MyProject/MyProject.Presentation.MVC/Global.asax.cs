@@ -1,4 +1,5 @@
-﻿using System;
+﻿using MyProject.Presentation.MVC.App_Start;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -14,6 +15,7 @@ namespace MyProject.Presentation.MVC
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             IocContainer.Setup();
+            MappingConfig.RegisterMaps();
 
         }
     }

@@ -9,28 +9,33 @@ namespace MyProject.Presentation.MVC.Models
     {
         public  int Id { get; set; }
         [DisplayName("Product Name")]
+        [MinLength(10)]
+        [MaxLength(30)]
         public  string ProductName { get; set; }
+
+        [DisplayName("Description")]
+        [DataType(DataType.MultilineText)]
+        public string ProductDescription { get; set; }
+
+        [DisplayName("Matrix Resolution")]
+        public int ProductMatrixResolution { get; set; }
 
         [DisplayName("Category")]
         public int ProductCategory { get; set; }
         public  IEnumerable <ProductCategory> ProductCategorys { get;set;}
 
+        [DisplayName("Price")]
+
+        public decimal ProductPrice { get; set; }
+
         [DisplayName("Ir Range (m)")]
         public  int ProductIrRange { get; set; }
 
         public  CameraType Type { get; set; }
-        [DisplayName("Price")]
-        public  decimal ProductPrice { get; set; }
 
-        [DisplayName("Quantity Added")]
+        [DisplayName("Quantity")]
+
         public  int ProductStock { get; set; }
-
-        [DisplayName("Matrix")]
-        public int MatrixResolution { get; set; }
-
-        [DisplayName("Description")]
-        [DataType(DataType.MultilineText)]
-        public  string ProductDescription { get; set; }
 
         [DisplayName("Product Visible")]
         [Required]

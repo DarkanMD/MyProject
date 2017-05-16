@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using MyProject.Domain.Model;
 //using MyProject.Infrastructure;
 using Ninject;
+using System;
+using MyProject.Repository.Interface;
+using System.Linq;
+using System.Linq.Expressions;
 
 namespace MyProject.Repository
 {
@@ -42,6 +46,21 @@ namespace MyProject.Repository
 
             }
         }
+        public PagedEntity<T> GetPaged (int page, int pageSize,Expression<Func<T,bool>> expression, Expression<Func<T, object>> ordered)
+        {
+            PagedEntity<T> result = new PagedEntity<T>();
+            result.Items = _session.QueryOver<T>()
+                .OrderBy(ordered).Desc
+                .Where(expression)
+                .Skip((page - 1) * pageSize)
+                .Take(pageSize)
+                .List<T>();
+            result.Page = page;
+            result.PageSize = pageSize;
+            result.ItemCount = _session.QueryOver<T>().Where(expression).RowCount();
+            return result;
+        }
+
 
         public IList<T> GetAll()
         {
@@ -51,6 +70,11 @@ namespace MyProject.Repository
                     .List<T>();
                 transaction.Commit();
             }
+        }
+
+        public int Count()
+        {
+            return _session.QueryOver<T>().RowCount();
         }
     }
 }

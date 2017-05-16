@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using MyProject.Domain.Model.Rows;
-using MyProject.Models;
 using NHibernate;
 using NHibernate.Transform;
 
