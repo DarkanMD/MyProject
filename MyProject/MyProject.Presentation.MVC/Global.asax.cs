@@ -1,4 +1,7 @@
-﻿using MyProject.Presentation.MVC.App_Start;
+﻿using Castle.Windsor;
+using Castle.Windsor.Installer;
+using MyProject.Presentation.MVC;
+using MyProject.Presentation.MVC.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +17,11 @@ namespace MyProject.Presentation.MVC
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
-            IocContainer.Setup();
+            var ioc = new IocContainer("SQL");
+            var container = new WindsorContainer().Install(FromAssembly.This());
+            ioc.Setup(container.Kernel);
+            ControllerBuilder.Current.SetControllerFactory(new WindsorControllerFactory(container.Kernel));
+           // IocContainer.Setup();
             MappingConfig.RegisterMaps();
 
         }

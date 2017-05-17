@@ -4,4 +4,16 @@
 }
 
 <h2>Index</h2>
-
+<div>
+	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+	<div id="content"></div>
+	<script>
+		$(document).ready($.ajax({
+			url: 'http://localhost:8269/ProductModel/ViewProducts',
+			type: 'GET',
+			success: function(data) {
+				console.log($(data));
+			}
+		}));
+	</script>
+</div>

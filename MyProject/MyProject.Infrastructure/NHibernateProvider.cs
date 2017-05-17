@@ -8,22 +8,18 @@ namespace MyProject.Infrastructure
 {
     public class NHibernateProvider
     {
-        private readonly string _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+        private readonly string _connectionString;
         private ISessionFactory _sessionFactory;
 
-        public NHibernateProvider( )
+        public NHibernateProvider(string connectionString )
         {
-           // _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings["SQL"].ConnectionString;
+        //    _connectionString = connectionString;
+            _connectionString = System.Configuration.ConfigurationManager.ConnectionStrings[connectionString].ConnectionString;
         }
 
         public ISessionFactory SessionFactory
         {
-            get
-            {
-                if (_sessionFactory == null)
-                    _sessionFactory = CreateSessionFactory();
-                return _sessionFactory;
-            }
+            get { return _sessionFactory ?? (_sessionFactory = CreateSessionFactory()); }
         }
 
         private ISessionFactory CreateSessionFactory()

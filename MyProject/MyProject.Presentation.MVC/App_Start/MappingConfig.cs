@@ -13,10 +13,10 @@ namespace MyProject.Presentation.MVC.App_Start
             AutoMapper.Mapper.Initialize(config =>
             {
                 config.CreateMap<Product, ProductModel>()
-                .ForMember(dest=>dest.ProductCategory,opt=>opt.MapFrom(scr=>scr.ProductCategory.Id));
+                    .ForMember(dest => dest.ProductCategory, opt => opt.MapFrom(scr => scr.ProductCategory.CategoryName));
                 config.CreateMap<ProductModel, Product>()
-                .ForMember(dest=>dest.ProductCategory,opt=>opt.MapFrom(src=>src.ProductCategory))
-              ;
+                    .ForMember(dest => dest.ProductCategory, opt => opt.MapFrom(src => src.ProductCategorys.Where(x => x.CategoryName == src.ProductCategory).Select(x => x).SingleOrDefault()))
+                    .ForMember(x => x.Id, y => y.Ignore());
             });
         }
     }

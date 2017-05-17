@@ -15,6 +15,7 @@ namespace MyProject.Presentation.MVC
                 .If(t => t.Name.EndsWith("Controller"))
                 .Configure(configurer => configurer.Named(configurer.Implementation.Name))
                 .LifestylePerWebRequest());
+
         }
     }
 }

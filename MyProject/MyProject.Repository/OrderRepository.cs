@@ -7,7 +7,7 @@ namespace MyProject.Repository
 {
     public class OrderRepository : Repository<Order> 
     {
-        public OrderRepository(ISession session) : base(session)
+        public OrderRepository(ISession session, ITransaction transaction) : base(session, transaction)
         {
         }
 

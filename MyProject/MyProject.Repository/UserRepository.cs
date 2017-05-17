@@ -7,7 +7,7 @@ namespace MyProject.Repository
 {
     public class UserRepository : Repository<User>
     {
-        public UserRepository(ISession session) : base(session)
+        public UserRepository(ISession session,ITransaction transaction) : base(session, transaction)
         {
         }
 

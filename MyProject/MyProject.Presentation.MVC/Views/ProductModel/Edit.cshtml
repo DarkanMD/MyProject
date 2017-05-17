@@ -5,14 +5,14 @@
     ViewBag.Title = "EditProductModel";
 }
 
-<h2>EditProductModel</h2>
+<h2>Edit Product</h2>
 
 @using (Html.BeginForm())
 {
 
 
 	<div class="form-horizontal">
-		<h4>ProductModel</h4>
+		
 		<hr/>
 		@Html.ValidationSummary(true, "", new {@class = "text-danger"})
 		@Html.HiddenFor(model => model.Id)
@@ -28,7 +28,7 @@
 		<div class="form-group">
 			@Html.LabelFor(model => model.ProductCategory, htmlAttributes: new {@class = "control-label col-md-2"})
 			<div class="col-md-10">
-				@Html.DropDownListFor(model => model.ProductCategory, new SelectList(Model.ProductCategorys, "Id", "CategoryName"), htmlAttributes: new {@class = "form-control"})
+				@Html.DropDownListFor(model => model.ProductCategory, new SelectList(Model.ProductCategorys,"CategoryName", "CategoryName"), htmlAttributes: new {@class = "form-control"})
 
 			</div>
 			@*new { @class = "control-label col-md-2" }*@
@@ -38,7 +38,14 @@
             </div>*@
 		</div>
 
-
+		<div class="form-group">
+			@Html.LabelFor(model => model.ProductMatrixResolution, htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.ProductMatrixResolution, new SelectList(ViewBag.MatrixResolutions, ViewBag.MatrixResolutions, ViewBag.MatrixResolutions.ToString()), htmlAttributes: new { @class = "form-control" })
+				@*@Html.EditorFor(model => model.ProductIrRange, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductIrRange, "", new { @class = "text-danger" })*@
+			</div>
+		</div>
 		<div class="form-group">
 			@Html.LabelFor(model => model.ProductIrRange, htmlAttributes: new {@class = "control-label col-md-2"})
 			<div class="col-md-10">
@@ -100,5 +107,5 @@
 
 }
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Back to List", "ViewProducts")
 </div>

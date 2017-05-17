@@ -5,7 +5,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace MyProject.Presentation.MVC.Models
 {
-    public class ProductModel:Product
+    public class ProductModel//:Product
     {
         public  int Id { get; set; }
         [DisplayName("Product Name")]
@@ -21,7 +21,7 @@ namespace MyProject.Presentation.MVC.Models
         public int ProductMatrixResolution { get; set; }
 
         [DisplayName("Category")]
-        public int ProductCategory { get; set; }
+        public string ProductCategory { get; set; }
         public  IEnumerable <ProductCategory> ProductCategorys { get;set;}
 
         [DisplayName("Price")]
