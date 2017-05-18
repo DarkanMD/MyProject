@@ -7,11 +7,12 @@ namespace MyProject.Presentation.MVC.Models
 {
     public class ProductModel//:Product
     {
-        public  int Id { get; set; }
+        public int Id { get; set; }
+
         [DisplayName("Product Name")]
         [MinLength(10)]
         [MaxLength(30)]
-        public  string ProductName { get; set; }
+        public string ProductName { get; set; }
 
         [DisplayName("Description")]
         [DataType(DataType.MultilineText)]
@@ -34,7 +35,8 @@ namespace MyProject.Presentation.MVC.Models
         public  CameraType Type { get; set; }
 
         [DisplayName("Quantity")]
-
+        [Required(ErrorMessage = "We need a valid Quantity")]
+        [RegularExpression("^[1-9][0-9]*$", ErrorMessage = "Quantity Must be a Positive Number")]
         public  int ProductStock { get; set; }
 
         [DisplayName("Product Visible")]

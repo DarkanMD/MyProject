@@ -5,15 +5,24 @@
 
 <h2>Index</h2>
 <div>
-	<script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<div id="content"></div>
+	<div id="target">yo</div>
+	<button id="b1">PressMe</button>
+	<button id="b2">PressMe2</button>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+	<script src="https://raw.github.com/dinbror/bpopup/master/jquery.bpopup.min.js"></script>
 	<script>
-		$(document).ready($.ajax({
-			url: 'http://localhost:8269/ProductModel/ViewProducts',
-			type: 'GET',
-			success: function(data) {
-				console.log($(data));
-			}
-		}));
+		$(document).ready(function() {
+			$("#b1").click(function() {
+				$.get("http://localhost:8269/ProductModel/GimmeData",
+					$("#target").wrapInner($("<table/>")),
+					function (data) {
+						$.each(data, function (index, element) {
+							$("#target,table").append($('<tr>', {
+								text: element.ProductName
+							}));
+						});
+					});
+			});
+		});
 	</script>
 </div>

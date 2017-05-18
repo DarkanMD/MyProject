@@ -23,13 +23,13 @@ namespace MyProject.Repository
 
         public void Save(T entity)
         {
-                _session.SaveOrUpdate(entity);
+            _session.SaveOrUpdate(entity);
             _transaction.Commit();
        }
 
         public void Delete(T entity)
         {
-                _session.Delete(entity);
+            _session.Delete(entity);
             _transaction.Commit();
         }
 

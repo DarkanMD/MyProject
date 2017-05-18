@@ -10,72 +10,73 @@
 <div>
     <h4>ProductModel</h4>
     <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductName)
-        </dt>
+	<dl class="dl-horizontal">
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductName)
-        </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.ProductName)
+		</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductDescription)
-        </dt>
+		<dd>
+			@Html.DisplayFor(model => model.ProductName)
+		</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductDescription)
-        </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.ProductDescription)
+		</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductMatrixResolution)
-        </dt>
+		<dd>
+			@Html.DisplayFor(model => model.ProductDescription)
+		</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductMatrixResolution)
-        </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.ProductMatrixResolution)
+		</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductCategory)
-        </dt>
+		<dd>
+			@Html.DisplayFor(model => model.ProductMatrixResolution)
+		</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductCategory)
-        </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.ProductCategory)
+		</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductPrice)
-        </dt>
+		<dd>
+			@Html.DisplayFor(model => model.ProductCategory)
+		</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductPrice)
-        </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.ProductPrice)
+		</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductIrRange)
-        </dt>
+		<dd>
+			@Html.DisplayFor(model => model.ProductPrice)
+		</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductIrRange)
-        </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.ProductIrRange)
+		</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductStock)
-        </dt>
+		<dd>
+			@Html.DisplayFor(model => model.ProductIrRange)
+		</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductStock)
-        </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.ProductStock)
+		</dt>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.ProductVisibility)
-        </dt>
+		<dd>
+			@Html.DisplayFor(model => model.ProductStock)
+		</dd>
 
-        <dd>
-            @Html.DisplayFor(model => model.ProductVisibility)
-        </dd>
+		<dt>
+			@Html.DisplayNameFor(model => model.ProductVisibility)
+		</dt>
 
-    </dl>
+		<dd>
+			@Html.DisplayFor(model => model.ProductVisibility)
+		</dd>
+
+	</dl>
 
     @using (Html.BeginForm()) {
         @Html.AntiForgeryToken()

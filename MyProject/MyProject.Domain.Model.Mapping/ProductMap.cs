@@ -8,6 +8,7 @@ namespace MyProject
         {
             Id(x => x.Id);
             Map(x => x.ProductName);
+            Map(x => x.ProductMatrixResolution);
             Map(x => x.ProductIrRange);
             Map(x => x.Type);
             References(x => x.ProductCategory);

@@ -4,6 +4,10 @@ using System.Web.Mvc;
 using AutoMapper;
 using MyProject.Presentation.MVC.Models;
 using MyProject.Repository.Interface;
+using Newtonsoft.Json;
+using NHibernate;
+using Newtonsoft.Json.Serialization;
+using System;
 
 namespace MyProject.Presentation.MVC.Controllers
 {
@@ -54,7 +58,7 @@ namespace MyProject.Presentation.MVC.Controllers
             return View(productModel);
         }
         [HttpPost]
-       // [ValidateAntiForgeryToken]
+        [ValidateAntiForgeryToken]
         public ActionResult Create(ProductModel productModel)
         {
             productModel.ProductCategorys = _categorys;
@@ -118,6 +122,7 @@ namespace MyProject.Presentation.MVC.Controllers
             return View(productModel);
         }
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult Delete(ProductModel productModel)
         {
 
@@ -127,6 +132,28 @@ namespace MyProject.Presentation.MVC.Controllers
                 _productRepository.Delete(product);
             }
             return  RedirectToAction( "ViewProducts"); ;
+        }
+     
+        public JsonResult GimmeData()
+        {
+            var data = JsonConvert.SerializeObject(_productRepository.Get(5),
+                new JsonSerializerSettings()
+                {
+                    ContractResolver = new NHibernateContractResolver(),
+                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
+
+                });
+            return Json(data,JsonRequestBehavior.AllowGet);
+        } 
+    }
+    public class NHibernateContractResolver : DefaultContractResolver
+    {
+        protected override JsonContract CreateContract(Type objectType)
+        {
+            if (typeof(NHibernate.Proxy.INHibernateProxy).IsAssignableFrom(objectType))
+                return base.CreateContract(objectType.BaseType);
+            else
+                return base.CreateContract(objectType);
         }
     }
 }
