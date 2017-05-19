@@ -8,21 +8,62 @@
 	<div id="target">yo</div>
 	<button id="b1">PressMe</button>
 	<button id="b2">PressMe2</button>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
-	<script src="https://raw.github.com/dinbror/bpopup/master/jquery.bpopup.min.js"></script>
+
+	@*<script src="~/JQGrid/grid.locale-en.js"></script>
+	<script src="~/JQGrid/jquery-1.11.0.min.js"></script>*@
+	@*<script src="~/JQGrid/jquery.jqGrid.js"></script>
+	
+	<link href="~/JQGrid/ui.jqgrid.css" rel="stylesheet" />*@
+	<table id="jqGridTable"></table>
+	<div id="jqGridPager"></div>
+	
+	<script>
+		jQuery("#jqGridTable").jqGrid({
+			url: 'http://localhost:8269/ProductModel/GimmeData',
+			datatype: "json",
+			colNames: [
+				'Id', 'Product Name', 'Product Description', 'Type', 'Product Matrix Resolution', 'Product Ir Range',
+				'Product Category', 'Product Price', 'Product Stock'
+			],
+			colModel: [
+				{ name: 'Id', index: 'Id', width: 150 },
+				{ name: 'ProductName', index: 'ProductName', width: 150, sortable: true },
+				{ name: 'ProductDescription', index: 'ProductDescription', width: 150, sortable: false },
+				{ name: 'Type', index: 'Type', width: 150 },
+				{ name: 'ProductMatrixResolution', index: 'ProductMatrixResolution', width: 100},
+				{ name: 'ProductIrRange', index: 'ProductIrRange', width: 80, align: "right"},
+				{ name: 'ProductCategory', index: 'ProductCategory', width: 80, align: "right" },
+				{ name: 'ProductPrice', index: 'ProductPrice', width: 80, align: "right" },
+				{ name: 'ProductStock', index: 'ProductStock', width: 150, sortable: false }
+			],
+			rowNum: 10,
+			loadonce: true,
+			gridview: true,
+			rowList:[10,20,30],
+			pager: '#jqGridPager',
+			sortname: 'Id',
+			viewrecords: true,
+			sortorder: "desc",
+			caption: "Products"
+			
+			
+			//gridView: true
+		});
+
+	</script>
 	<script>
 		$(document).ready(function() {
 			$("#b1").click(function() {
-				$.get("http://localhost:8269/ProductModel/GimmeData",
-					$("#target").wrapInner($("<table/>")),
-					function (data) {
-						$.each(data, function (index, element) {
-							$("#target,table").append($('<tr>', {
-								text: element.ProductName
-							}));
+					$.get("http://localhost:8269/ProductModel/GimmeData",
+						function(data) {
+
+							data.forEach(function(element) {
+								$('#target').append('</br>' + element.ProductName);
+							});
 						});
-					});
-			});
+
+				}),
+				$("#b2").click(function () { $('#target').html('') });
 		});
 	</script>
 </div>

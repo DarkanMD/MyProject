@@ -17,6 +17,14 @@ namespace MyProject.Presentation.MVC.App_Start
                 config.CreateMap<ProductModel, Product>()
                     .ForMember(dest => dest.ProductCategory, opt => opt.MapFrom(src => src.ProductCategorys.Where(x => x.CategoryName == src.ProductCategory).Select(x => x).SingleOrDefault()))
                     .ForMember(x => x.Id, y => y.Ignore());
+                config.CreateMap<Product, ProductJsonModel>()
+                    .ForMember(dest => dest.ProductCategory,
+                        opt => opt.MapFrom(scr => scr.ProductCategory.CategoryName))
+                    .ForMember(dest => dest.Type,
+                        opt => opt.MapFrom(scr => scr.Type.ToString()));
+
+
+
             });
         }
     }

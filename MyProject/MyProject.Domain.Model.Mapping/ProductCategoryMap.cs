@@ -7,7 +7,7 @@ namespace MyProject
         {
             Id(x => x.Id);
             Map(x => x.CategoryName);
-            HasMany(x => x.Products).Inverse();
+           // HasMany(x => x.Products).Inverse();
         }
     }
 }

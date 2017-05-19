@@ -28,7 +28,7 @@ namespace MyProject.Infrastructure
                 .Database(MsSqlConfiguration.MsSql2012.ConnectionString(_connectionString))
                 .Mappings(x => x.FluentMappings.AddFromAssembly(typeof(ProductMap).Assembly))
                 .ExposeConfiguration(cfg => new SchemaUpdate(cfg).Execute(false, true));
-             // .ExposeConfiguration(CreateSchema);
+              //.ExposeConfiguration(CreateSchema);
 
             return configuration.BuildSessionFactory();
         }

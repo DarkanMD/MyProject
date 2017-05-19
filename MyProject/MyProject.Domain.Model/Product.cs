@@ -2,7 +2,7 @@
 
 namespace MyProject
    {
-       public enum CameraType {External=1, Internal }
+       public enum CameraType {External, Internal }
     public class Product : Entity
     {
 
@@ -16,18 +16,7 @@ namespace MyProject
         public virtual int ProductIrRange { get; set; }
         public virtual ProductCategory ProductCategory { get; set; }
         public virtual decimal ProductPrice { get; set; }
-
-
-
-
-
-
-
-
-
         public virtual int ProductStock { get; set; }
-
-
 
         public virtual bool ProductVisibility { get; set; }
 

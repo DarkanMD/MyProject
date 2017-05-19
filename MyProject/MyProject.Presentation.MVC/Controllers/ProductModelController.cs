@@ -8,6 +8,7 @@ using Newtonsoft.Json;
 using NHibernate;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Web.Script.Serialization;
 
 namespace MyProject.Presentation.MVC.Controllers
 {
@@ -136,14 +137,10 @@ namespace MyProject.Presentation.MVC.Controllers
      
         public JsonResult GimmeData()
         {
-            var data = JsonConvert.SerializeObject(_productRepository.Get(5),
-                new JsonSerializerSettings()
-                {
-                    ContractResolver = new NHibernateContractResolver(),
-                    ReferenceLoopHandling = ReferenceLoopHandling.Ignore
-
-                });
-            return Json(data,JsonRequestBehavior.AllowGet);
+            IList<Product> list = _productRepository.GetAll().ToList();
+            var forJsonList = new List<ProductJsonModel>();
+            Mapper.Map(list, forJsonList);
+            return Json(forJsonList, JsonRequestBehavior.AllowGet);
         } 
     }
     public class NHibernateContractResolver : DefaultContractResolver
