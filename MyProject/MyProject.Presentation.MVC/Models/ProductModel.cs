@@ -12,6 +12,7 @@ namespace MyProject.Presentation.MVC.Models
         [DisplayName("Product Name")]
         [MinLength(10)]
         [MaxLength(30)]
+
         public string ProductName { get; set; }
 
         [DisplayName("Description")]
