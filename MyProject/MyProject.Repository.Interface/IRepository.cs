@@ -14,7 +14,7 @@ namespace MyProject.Repository.Interface
         T Get(int id);
 
         IList<T> GetAll();
-        PagedEntity<T> GetPaged(int page, int pagesize, Expression<Func<T, bool>> expression, Expression<Func<T, object>> ordered);
+        PagedEntity<T> GetPaged(int page, int pagesize, Expression<Func<T, bool>> expression, string ordered);
         int Count();
 
     }

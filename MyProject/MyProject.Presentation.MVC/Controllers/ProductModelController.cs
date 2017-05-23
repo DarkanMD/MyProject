@@ -8,14 +8,16 @@ using Newtonsoft.Json;
 using NHibernate;
 using Newtonsoft.Json.Serialization;
 using System;
+using System.Linq.Expressions;
 using System.Web.Script.Serialization;
+using MyProject.Repository;
 
 namespace MyProject.Presentation.MVC.Controllers
 {
     public class ProductModelController : Controller
     {
         //private IRepository<ProductCategory> _rep;
-        private IRepository<Product> _productRepository;
+        private ProductRepository _productRepository;
         private IList<ProductCategory> _categorys;
         IList<int> irRanges;
         IList<string> types;
@@ -23,10 +25,10 @@ namespace MyProject.Presentation.MVC.Controllers
 
 
 
-        public ProductModelController(IRepository<Product> productRep)
+        public ProductModelController(/*ProductRepository productRep*/ISession session,ITransaction trans)
       {
             //_rep = rep;
-            _productRepository = productRep;
+            _productRepository = new ProductRepository(session,trans);
             _categorys = new List<ProductCategory>() {new ProductCategory() {CategoryName = "Dome",Id = 1}, new ProductCategory() { CategoryName = "Bulet", Id = 2 },
                 new ProductCategory() { CategoryName = "PTZ", Id = 3 }, new ProductCategory() { CategoryName = "SPY", Id = 4 } };
             irRanges = new List<int>() { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200 };
@@ -39,13 +41,32 @@ namespace MyProject.Presentation.MVC.Controllers
             return View();
         }
 
-        public ActionResult ViewProducts()
+        //public ActionResult ViewProducts()
+        //{
+        //    var products = _productRepository.GetPaged(1, 10, x => x.ProductPrice > 0, x => x.ProductName).Items;
+
+        //    var result = Mapper.Map<IEnumerable<Product>,IEnumerable<ProductModel > >(products.Where(x=>x.ProductVisibility));
+        //    return View(result);
+
+        //}
+        [HttpPost]
+        public JsonResult ViewProducts(int jtStartIndex = 0, int jtPageSize = 0, string jtSorting = null)
         {
-            var products = _productRepository.GetPaged(1, 10, x => x.ProductPrice > 0, x => x.ProductName).Items;
 
-            var result = Mapper.Map<IEnumerable<Product>,IEnumerable<ProductModel > >(products.Where(x=>x.ProductVisibility));
-            return View(result);
 
+            Expression<Func<Product, object>> expression = s => s.ProductPrice;
+
+            try
+            {
+                int productCount = _productRepository.Count();
+                IEnumerable<Product> products = _productRepository.GetPaged(jtStartIndex, jtPageSize, x=>x.ProductPrice>0, jtSorting).Items;
+                var result = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductModel>>(products);
+                return Json(new { Result = "OK", Records = result, TotalRecordCount = productCount });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
         }
         public ActionResult Create()
         {
@@ -59,9 +80,11 @@ namespace MyProject.Presentation.MVC.Controllers
             return View(productModel);
         }
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(ProductModel productModel)
+      //  [ValidateAntiForgeryToken]
+        public ActionResult Create(JsonResult json)
         {
+            ProductModel productModel = new ProductModel();
+            
             productModel.ProductCategorys = _categorys;
             ViewBag.IrRanges = irRanges;
             ViewBag.Types = types;
@@ -97,7 +120,7 @@ namespace MyProject.Presentation.MVC.Controllers
         {
             productModel.ProductCategorys = _categorys;
             ViewBag.IrRanges = irRanges;
-           ViewBag.Types = types;
+            ViewBag.Types = types;
             ViewBag.MatrixResolutions = matrixResolutions;
             if (ModelState.IsValid)
             {
@@ -105,42 +128,59 @@ namespace MyProject.Presentation.MVC.Controllers
                 Mapper.Map(productModel, product);
                 _productRepository.Save(product);
             }
-            return  RedirectToAction( "ViewProducts");
+            return RedirectToAction("ViewProducts");
         }
 
-        public ActionResult Delete(int id)
-        {
-            ProductModel productModel = new ProductModel();
-            productModel.ProductCategorys = _categorys;
-            ViewBag.IrRanges = irRanges;
-            ViewBag.Types = types;
-            ViewBag.MatrixResolutions = matrixResolutions;
-            Product product = _productRepository.Get(id);
-            if (product != null)
-            {
-                productModel = Mapper.Map<Product, ProductModel>(product);
-            }
-            return View(productModel);
-        }
+        //public ActionResult Delete(int id)
+        //{
+        //    ProductModel productModel = new ProductModel();
+        //    productModel.ProductCategorys = _categorys;
+        //    ViewBag.IrRanges = irRanges;
+        //    ViewBag.Types = types;
+        //    ViewBag.MatrixResolutions = matrixResolutions;
+        //    Product product = _productRepository.Get(id);
+        //    if (product != null)
+        //    {
+        //        productModel = Mapper.Map<Product, ProductModel>(product);
+        //    }
+        //    return View(productModel);
+        //}
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Delete(ProductModel productModel)
+      //  [ValidateAntiForgeryToken]
+        public ActionResult Delete(int Id)
         {
 
-            if (productModel != null)
+            //if (productModel != null)
+            //{
+            //    var product =_productRepository.Get(productModel.Id);
+            //   
+            //}
+
+            //return  RedirectToAction( "ViewProducts"); ;
+            try
             {
-                var product =_productRepository.Get(productModel.Id);
+                var product = _productRepository.Get(Id);
                 _productRepository.Delete(product);
+                return Json(new { Result = "OK" });
             }
-            return  RedirectToAction( "ViewProducts"); ;
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
         }
      
+        [HttpPost]
         public JsonResult GimmeData()
         {
-            IList<Product> list = _productRepository.GetAll().ToList();
-            var forJsonList = new List<ProductJsonModel>();
-            Mapper.Map(list, forJsonList);
-            return Json(forJsonList, JsonRequestBehavior.AllowGet);
+            try
+            {
+                List<Product> products = _productRepository.GetAll().ToList();
+                return Json(new { Result = "OK", Records = products });
+            }
+            catch (Exception ex)
+            {
+                return Json(new { Result = "ERROR", Message = ex.Message });
+            }
         } 
     }
     public class NHibernateContractResolver : DefaultContractResolver

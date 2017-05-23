@@ -7,8 +7,8 @@
     <ProjectGuid>{17C2BA10-29F3-4C7E-976F-612B5EFC29D8}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>DAL</RootNamespace>
-    <AssemblyName>DAL</AssemblyName>
+    <RootNamespace>MyProject.Repository</RootNamespace>
+    <AssemblyName>MyProject.Repository</AssemblyName>
     <TargetFrameworkVersion>v4.5.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
   </PropertyGroup>
@@ -55,6 +55,7 @@
     <Compile Include="OrderRepository.cs" />
     <Compile Include="ProductRepository.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="QuaryableExtension.cs" />
     <Compile Include="Repository.cs" />
     <Compile Include="UserRepository.cs" />
   </ItemGroup>

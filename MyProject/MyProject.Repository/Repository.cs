@@ -1,12 +1,15 @@
 ﻿using NHibernate;
 using System.Collections.Generic;
-using MyProject.Domain.Model;
 //using MyProject.Infrastructure;
 using Ninject;
 using System;
 using MyProject.Repository.Interface;
 using System.Linq;
 using System.Linq.Expressions;
+using MyProject.Domain.Model;
+using MyProject.Domain.Model;
+//using MyProject.Domain.Model;
+using NHibernate.Impl;
 
 namespace MyProject.Repository
 {
@@ -37,20 +40,24 @@ namespace MyProject.Repository
         {
                 return _session.Get<T>(id);
         }
-        public PagedEntity<T> GetPaged (int page, int pageSize,Expression<Func<T,bool>> expression, Expression<Func<T, object>> ordered)
+       public virtual PagedEntity<T> GetPaged (int page, int pageSize,Expression<Func<T,bool>> expression, string ordered)
         {
-                PagedEntity<T> result = new PagedEntity<T>();
-                result.Items = _session.QueryOver<T>()
-                    .OrderBy(ordered)
-                    .Desc
-                    .Where(expression)
-                    .Skip((page - 1) * pageSize)
-                    .Take(pageSize)
-                    .List<T>();
-                result.Page = page;
-                result.PageSize = pageSize;
-                result.ItemCount = _session.QueryOver<T>().Where(expression).RowCount();
-                return result;
+           // var criteria = _session.CreateCriteria(T,)
+
+           //// mycriteria.AddOrder(NHibernate.Criterion.Order.Desc("name"));
+           // PagedEntity<T> result = new PagedEntity<T>();
+           // result.Items = _session.QueryOver<T>()
+           //     .OrderBy(ordered)
+           //     .Desc
+           //     .Where(expression)
+           //     .Skip((page - 1) * pageSize)
+           //     .Take(pageSize)
+
+           //     .List<T>();
+           // result.Page = page;
+           // result.PageSize = pageSize;
+           // result.ItemCount = _session.QueryOver<T>().Where(expression).RowCount();
+            return null;
 
         }
 
