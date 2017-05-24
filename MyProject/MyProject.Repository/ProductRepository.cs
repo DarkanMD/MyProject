@@ -11,11 +11,12 @@ namespace MyProject.Repository
 {
     public class ProductRepository : Repository<Product>
     {
-        public ProductRepository(ISession session,  ITransaction transaction) : base(session, transaction)
+        public ProductRepository(ISession session, ITransaction transaction) : base(session, transaction)
         {
         }
 
-        public override PagedEntity<Product> GetPaged(int page, int pageSize, Expression<Func<Product, bool>> expression, /*Expression<Func<Product, object>>*/string ordered)
+        public override PagedEntity<Product> GetPaged(int page, int pageSize,
+            Expression<Func<Product, bool>> expression, /*Expression<Func<Product, object>>*/string ordered)
         {
             var orderParam = ordered.Split(' ');
             Expression<Func<Product, object>> sortingExpression; // typeof(Product).GetProperty(orderParam[0]);
@@ -44,12 +45,13 @@ namespace MyProject.Repository
                 PagedEntity<Product> result = new PagedEntity<Product>();
                 _session.QueryOver<Product>()
                     .Where(expression)
-                .UnderlyingCriteria.AddOrder(NHibernate.Criterion.Order.Asc(orderParam[0]));
+                    .UnderlyingCriteria.AddOrder(NHibernate.Criterion.Order.Asc(orderParam[0]));
 
                 result.Items = _session.QueryOver<Product>()
-                    .Where(expression).Skip(page * pageSize)
+                    .Where(expression)
+                    .Skip(page * pageSize)
                     .Take(pageSize)
-                   .List<Product>();
+                    .List<Product>();
 
                 result.Page = page;
                 result.PageSize = pageSize;
@@ -58,25 +60,26 @@ namespace MyProject.Repository
             }
             else
             {
-            //    PagedEntity<Product> result = new PagedEntity<Product>();
-            //    result.Items = _session.QueryOver<Product>()
+                //    PagedEntity<Product> result = new PagedEntity<Product>();
+                //    result.Items = _session.QueryOver<Product>()
 
-            //        .Where(expression)
-            //        .OrderBy(sortingExpression)
-            //        .Desc
-            //        .Skip(page * pageSize)
-            //        .Take(pageSize)
-            //        .List<Product>();
+                //        .Where(expression)
+                //        .OrderBy(sortingExpression)
+                //        .Desc
+                //        .Skip(page * pageSize)
+                //        .Take(pageSize)
+                //        .List<Product>();
 
-            //    result.Page = page;
-            //    result.PageSize = pageSize;
-            //    result.ItemCount = _session.QueryOver<Product>().Where(expression).RowCount();
-            //    return result;
-            //}
+                //    result.Page = page;
+                //    result.PageSize = pageSize;
+                //    result.ItemCount = _session.QueryOver<Product>().Where(expression).RowCount();
+                //    return result;
+                //}
                 return null;
 
             }
 
 
+        }
     }
 }

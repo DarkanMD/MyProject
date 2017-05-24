@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
+using Microsoft.AspNet.Identity;
 using MyProject.Domain.Model;
-
+using FluentNHibernate.Mapping;
 
 namespace MyProject
 {
@@ -43,5 +44,18 @@ namespace MyProject
         //    order.User = this;
         //}
 
+    public class UserMap : ClassMap<User>
+    {
+        public UserMap()
+        {
+            Id(x => x.Id);
+            Map(x => x.Email);
+            Map(x => x.PasswordHash);
+            Map(x => x.Roles);
+            Map(x => x.UserName);
+            Map(x => x.Orders);
+            Map(x => x.Profile);
+        }
+    }
 
 }

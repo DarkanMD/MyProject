@@ -1,13 +1,19 @@
-﻿using MyProject.Domain.Model;
+﻿using System;
+using System.Collections.Generic;
+using MyProject.Domain.Model;
+using System.Security.Claims;
+using Microsoft.AspNet.Identity;
+using NHibernate.Util;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
+using System.Security.Claims;
 using System.Threading.Tasks;
+using Microsoft.AspNet.Identity;
 
-namespace MyProject.Domain.Model
+namespace MyProject.Repository
 {
-    public class UserService : UserService
+    public class UserService : IUserService
     {
         private readonly IUnitOfWork _unitOfWork;
         private readonly IMapper _mapper;

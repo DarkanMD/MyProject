@@ -6,7 +6,7 @@ namespace MyProject
         public UserMap()
         {
             Id(x => x.Id);
-            HasMany(x => x.Orders).Inverse().Cascade.AllDeleteOrphan();
+          //  HasMany(x => x.Orders).Inverse().Cascade.AllDeleteOrphan();
             Map(x => x.UserName);
             Map(x => x.UserAddress);
             Map(x => x.UserEmailAddress);
