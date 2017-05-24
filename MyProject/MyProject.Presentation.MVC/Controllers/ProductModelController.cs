@@ -128,35 +128,13 @@ namespace MyProject.Presentation.MVC.Controllers
                 Mapper.Map(productModel, product);
                 _productRepository.Save(product);
             }
-            return RedirectToAction("ViewProducts");
+            return RedirectToAction("Index");
         }
 
-        //public ActionResult Delete(int id)
-        //{
-        //    ProductModel productModel = new ProductModel();
-        //    productModel.ProductCategorys = _categorys;
-        //    ViewBag.IrRanges = irRanges;
-        //    ViewBag.Types = types;
-        //    ViewBag.MatrixResolutions = matrixResolutions;
-        //    Product product = _productRepository.Get(id);
-        //    if (product != null)
-        //    {
-        //        productModel = Mapper.Map<Product, ProductModel>(product);
-        //    }
-        //    return View(productModel);
-        //}
         [HttpPost]
       //  [ValidateAntiForgeryToken]
         public ActionResult Delete(int Id)
         {
-
-            //if (productModel != null)
-            //{
-            //    var product =_productRepository.Get(productModel.Id);
-            //   
-            //}
-
-            //return  RedirectToAction( "ViewProducts"); ;
             try
             {
                 var product = _productRepository.Get(Id);
@@ -168,7 +146,12 @@ namespace MyProject.Presentation.MVC.Controllers
                 return Json(new { Result = "ERROR", Message = ex.Message });
             }
         }
-     
+
+        public JsonResult GetTypes()
+        {
+            var result = Json(Enum.GetValues(typeof(Type)).Cast<Type>() );
+            return result;
+        }
         [HttpPost]
         public JsonResult GimmeData()
         {

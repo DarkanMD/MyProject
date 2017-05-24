@@ -27,7 +27,8 @@ namespace MyProject.Presentation.MVC.Models
         public  IEnumerable <ProductCategory> ProductCategorys { get;set;}
 
         [DisplayName("Price")]
-
+        [Required(ErrorMessage = "We need a valid Quantity")]
+        [RegularExpression("^[1-9][0-9]*$", ErrorMessage = "Quantity Must be a Positive Number")]
         public decimal ProductPrice { get; set; }
 
         [DisplayName("Ir Range (m)")]

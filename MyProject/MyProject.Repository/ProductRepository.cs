@@ -19,37 +19,37 @@ namespace MyProject.Repository
         {
             var orderParam = ordered.Split(' ');
             Expression<Func<Product, object>> sortingExpression; // typeof(Product).GetProperty(orderParam[0]);
-            switch (orderParam[0])
-            {
-                case "ProductCategory":
-                    sortingExpression = x => x.ProductCategory;
-                    break;
-                case "ProductMatrixResolution":
-                    sortingExpression = x => x.ProductMatrixResolution;
-                    break;
-                case "ProductPrice":
-                    sortingExpression = x => x.ProductPrice;
-                    break;
-                case "ProductIrRange":
-                    sortingExpression = x => x.ProductIrRange;
-                    break;
-                case "Type":
-                    sortingExpression = x => x.Type;
-                    break;
-                default: sortingExpression = x => x.ProductName;
-                    break;
-            }
+            //switch (orderParam[0])
+            //{
+            //    case "ProductCategory":
+            //        sortingExpression = x => x.ProductCategory;
+            //        break;
+            //    case "ProductMatrixResolution":
+            //        sortingExpression = x => x.ProductMatrixResolution;
+            //        break;
+            //    case "ProductPrice":
+            //        sortingExpression = x => x.ProductPrice;
+            //        break;
+            //    case "ProductIrRange":
+            //        sortingExpression = x => x.ProductIrRange;
+            //        break;
+            //    case "Type":
+            //        sortingExpression = x => x.Type;
+            //        break;
+            //    default: sortingExpression = x => x.ProductName;
+            //        break;
+            //}
             if (orderParam[1] == "ASC")
             {
                 PagedEntity<Product> result = new PagedEntity<Product>();
-                result.Items = _session.QueryOver<Product>()
-
+                _session.QueryOver<Product>()
                     .Where(expression)
-                    .OrderBy(sortingExpression)
-                    .Asc
-                    .Skip(page * pageSize)
+                .UnderlyingCriteria.AddOrder(NHibernate.Criterion.Order.Asc(orderParam[0]));
+
+                result.Items = _session.QueryOver<Product>()
+                    .Where(expression).Skip(page * pageSize)
                     .Take(pageSize)
-                    .List<Product>();
+                   .List<Product>();
 
                 result.Page = page;
                 result.PageSize = pageSize;
@@ -58,23 +58,24 @@ namespace MyProject.Repository
             }
             else
             {
-                PagedEntity<Product> result = new PagedEntity<Product>();
-                result.Items = _session.QueryOver<Product>()
+            //    PagedEntity<Product> result = new PagedEntity<Product>();
+            //    result.Items = _session.QueryOver<Product>()
 
-                    .Where(expression)
-                    .OrderBy(sortingExpression)
-                    .Desc
-                    .Skip(page * pageSize)
-                    .Take(pageSize)
-                    .List<Product>();
+            //        .Where(expression)
+            //        .OrderBy(sortingExpression)
+            //        .Desc
+            //        .Skip(page * pageSize)
+            //        .Take(pageSize)
+            //        .List<Product>();
 
-                result.Page = page;
-                result.PageSize = pageSize;
-                result.ItemCount = _session.QueryOver<Product>().Where(expression).RowCount();
-                return result;
+            //    result.Page = page;
+            //    result.PageSize = pageSize;
+            //    result.ItemCount = _session.QueryOver<Product>().Where(expression).RowCount();
+            //    return result;
+            //}
+                return null;
+
             }
-
-        }
 
 
     }

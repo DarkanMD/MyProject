@@ -93,7 +93,7 @@
 			<div class="col-md-10">
 				<div class="checkbox">
 					@Html.EditorFor(model => model.ProductVisibility)
-					@Html.ValidationMessageFor(model => model.ProductVisibility, "", new {@class = "text-danger"})
+					@*@Html.ValidationMessageFor(model => model.ProductVisibility, "", new {@class = "text-danger"})*@
 				</div>
 			</div>
 		</div>
@@ -107,5 +107,8 @@
 
 }
 <div>
-    @Html.ActionLink("Back to List", "ViewProducts")
+	@Html.ActionLink("Back to List", "ViewProducts")
 </div>
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>
