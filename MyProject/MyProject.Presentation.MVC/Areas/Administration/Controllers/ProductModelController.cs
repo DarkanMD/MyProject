@@ -1,19 +1,17 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
+using System.Linq.Expressions;
 using System.Web.Mvc;
 using AutoMapper;
 using MyProject.Presentation.MVC.Models;
-using MyProject.Repository.Interface;
-using Newtonsoft.Json;
-using NHibernate;
-using Newtonsoft.Json.Serialization;
-using System;
-using System.Linq.Expressions;
-using System.Web.Script.Serialization;
 using MyProject.Repository;
+using Newtonsoft.Json.Serialization;
+using NHibernate;
 
-namespace MyProject.Presentation.MVC.Controllers
+namespace MyProject.Presentation.MVC.Areas.Administration
 {
+    [Authorize]
     public class ProductModelController : Controller
     {
         //private IRepository<ProductCategory> _rep;
@@ -25,14 +23,14 @@ namespace MyProject.Presentation.MVC.Controllers
 
 
 
-        public ProductModelController(/*ProductRepository productRep*/ISession session,ITransaction trans)
-      {
+        public ProductModelController(/*ProductRepository productRep*/ISession session, ITransaction trans)
+        {
             //_rep = rep;
-            _productRepository = new ProductRepository(session,trans);
+            _productRepository = new ProductRepository(session, trans);
             _categorys = new List<ProductCategory>() {new ProductCategory() {CategoryName = "Dome",Id = 1}, new ProductCategory() { CategoryName = "Bulet", Id = 2 },
                 new ProductCategory() { CategoryName = "PTZ", Id = 3 }, new ProductCategory() { CategoryName = "SPY", Id = 4 } };
             irRanges = new List<int>() { 0, 10, 20, 30, 40, 50, 60, 70, 80, 90, 100, 110, 120, 130, 140, 150, 160, 170, 180, 190, 200 };
-            matrixResolutions = new List<int>() {1,2,3,4,5,6,7,8,9,10};
+            matrixResolutions = new List<int>() { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
             types = new List<string>() { "External", "Internal" };
         }
         // GET: Product
@@ -59,7 +57,7 @@ namespace MyProject.Presentation.MVC.Controllers
             try
             {
                 int productCount = _productRepository.Count();
-                IEnumerable<Product> products = _productRepository.GetPaged(jtStartIndex, jtPageSize, x=>x.ProductPrice>0, jtSorting).Items;
+                IEnumerable<Product> products = _productRepository.GetPaged(jtStartIndex, jtPageSize, x => x.ProductPrice > 0, jtSorting).Items;
                 var result = Mapper.Map<IEnumerable<Product>, IEnumerable<ProductModel>>(products);
                 return Json(new { Result = "OK", Records = result, TotalRecordCount = productCount });
             }
@@ -80,11 +78,11 @@ namespace MyProject.Presentation.MVC.Controllers
             return View(productModel);
         }
         [HttpPost]
-      //  [ValidateAntiForgeryToken]
+        //  [ValidateAntiForgeryToken]
         public ActionResult Create(JsonResult json)
         {
             ProductModel productModel = new ProductModel();
-            
+
             productModel.ProductCategorys = _categorys;
             ViewBag.IrRanges = irRanges;
             ViewBag.Types = types;
@@ -132,7 +130,7 @@ namespace MyProject.Presentation.MVC.Controllers
         }
 
         [HttpPost]
-      //  [ValidateAntiForgeryToken]
+        //  [ValidateAntiForgeryToken]
         public ActionResult Delete(int Id)
         {
             try
@@ -149,7 +147,7 @@ namespace MyProject.Presentation.MVC.Controllers
 
         public JsonResult GetTypes()
         {
-            var result = Json(Enum.GetValues(typeof(Type)).Cast<Type>() );
+            var result = Json(Enum.GetValues(typeof(Type)).Cast<Type>());
             return result;
         }
         [HttpPost]
@@ -164,7 +162,7 @@ namespace MyProject.Presentation.MVC.Controllers
             {
                 return Json(new { Result = "ERROR", Message = ex.Message });
             }
-        } 
+        }
     }
     public class NHibernateContractResolver : DefaultContractResolver
     {

@@ -1,6 +1,6 @@
 
 using FluentNHibernate.Mapping;
-namespace MyProject
+namespace MyProject.Domain.Model.Mapping
 {
     public class ProductMap : ClassMap<Product>
     {

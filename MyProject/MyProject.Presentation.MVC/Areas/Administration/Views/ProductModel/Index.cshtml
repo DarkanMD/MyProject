@@ -1,6 +1,6 @@
-﻿
-@{
-    ViewBag.Title = "Index";
+﻿@{
+	Layout = "~/Views/Shared/_Layout.cshtml";
+	ViewBag.Title = "Index";
 }
 
 <h2>Index</h2>
@@ -29,7 +29,7 @@
 				defaultSorting: 'ProductName ASC',
 				actions: {
 					listAction: '/ProductModel/ViewProducts',
-					//createAction: '/ProductModel/Create',
+					createAction: '/ProductModel/Create',
 					//updateAction: '/ProductModel/Edit',
 					deleteAction: '/ProductModel/Delete'
 				},

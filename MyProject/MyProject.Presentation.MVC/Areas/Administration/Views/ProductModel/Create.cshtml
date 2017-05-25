@@ -1,0 +1,115 @@
+﻿@using System.Web.Mvc.Ajax
+@using Castle.Windsor.Configuration.Interpreters.XmlProcessor.ElementProcessors
+@model MyProject.Presentation.MVC.Models.ProductModel
+
+@{
+	ViewBag.Title = "Create Product Form";
+	
+}
+
+<h2>Create Product Form</h2>
+
+
+@using (Ajax.BeginForm("Create","ProductModel",new AjaxOptions { }))
+{
+				@Html.AntiForgeryToken()
+
+			   <div class="form-horizontal">
+		<h4></h4>
+		<hr/>
+		@Html.ValidationSummary(true, "", new {@class = "text-danger"})
+		<div class="form-group">
+			@Html.LabelFor(model => model.ProductName, htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.ProductName, new {htmlAttributes = new {@class = "form-control"}})
+				@Html.ValidationMessageFor(model => model.ProductName, "", new {@class = "text-danger"})
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.ProductCategory, htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.ProductCategory, new SelectList(Model.ProductCategorys, "CategoryName", "CategoryName"), htmlAttributes: new {@class = "form-control"})
+
+			</div>
+			@*new { @class = "control-label col-md-2" }*@
+			@*<div class="col-md-10">
+                @Html.EditorFor(model => model.ProductCategoryId, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductCategoryId, "", new { @class = "text-danger" })
+            </div>*@
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.ProductMatrixResolution, htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.ProductMatrixResolution, new SelectList(ViewBag.MatrixResolutions, ViewBag.MatrixResolutions, ViewBag.MatrixResolutions.ToString()), htmlAttributes: new { @class = "form-control" })
+				@*@Html.EditorFor(model => model.ProductIrRange, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductIrRange, "", new { @class = "text-danger" })*@
+			</div>
+		</div>
+		<div class="form-group">
+			@Html.LabelFor(model => model.ProductIrRange, htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.ProductIrRange, new SelectList(ViewBag.IrRanges, ViewBag.IrRanges, ViewBag.IrRanges.ToString()), htmlAttributes: new {@class = "form-control"})
+				@*@Html.EditorFor(model => model.ProductIrRange, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.ProductIrRange, "", new { @class = "text-danger" })*@
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.Type, htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				@Html.DropDownListFor(model => model.Type, new SelectList(ViewBag.Types, ViewBag.Types, ViewBag.Types.ToString()), htmlAttributes: new {@class = "form-control"})
+				@*@Html.EditorFor(model => model.Type, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })*@
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.ProductPrice, htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.ProductPrice, new {htmlAttributes = new {@class = "form-control"}})
+				@Html.ValidationMessageFor(model => model.ProductPrice, "", new {@class = "text-danger"})
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.ProductStock, htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.ProductStock, new {htmlAttributes = new {@class = "form-control"}})
+				@Html.ValidationMessageFor(model => model.ProductStock, "", new {@class = "text-danger"})
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.ProductDescription, htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				@Html.EditorFor(model => model.ProductDescription, new {htmlAttributes = new {@class = "form-control"}})
+				@Html.ValidationMessageFor(model => model.ProductDescription, "", new {@class = "text-danger"})
+			</div>
+		</div>
+
+		<div class="form-group">
+			@Html.LabelFor(model => model.ProductVisibility, htmlAttributes: new {@class = "control-label col-md-2"})
+			<div class="col-md-10">
+				<div class="checkbox">
+					@Html.EditorFor(model => model.ProductVisibility)
+					@Html.ValidationMessageFor(model => model.ProductVisibility, "", new {@class = "text-danger"})
+				</div>
+			</div>
+		</div>
+
+		<div class="form-group">
+			<div class="col-md-offset-2 col-md-10">
+				<input type="submit" value="Create" class="btn btn-default"/>
+			</div>
+		</div>
+	</div>
+}
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+
+<script src="~/Scripts/jquery-1.12.4.js"></script>
+<script src="~/Scripts/jquery.validate.min.js"></script>
+<script src="~/Scripts/jquery.validate.unobtrusive.min.js"></script>

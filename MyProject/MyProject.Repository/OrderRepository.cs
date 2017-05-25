@@ -44,7 +44,7 @@ namespace MyProject.Repository
 
             return _session.QueryOver(() => user)
                 .Where(()=>user.Id==id)
-                .Left.JoinAlias(() => user.Orders, () => order)
+                //.Left.JoinAlias(() => user.Orders, () => order)
                 .Left.JoinAlias(() => order.OrderProducts, () => orderProduct)
                 .SelectList(list => list
                     .Select(() => order.Id).WithAlias(() => orderDetailsRow.OrderId)

@@ -1,0 +1,105 @@
+﻿@model IEnumerable<MyProject.Presentation.MVC.Models.ProductModel>
+
+@{
+    ViewBag.Title = "ViewProducts";
+}
+
+<h2>ViewProducts</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table class="table">
+	<tr>
+		<th>
+			@Html.DisplayNameFor(model => model.ProductName)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.ProductDescription)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.ProductMatrixResolution)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.ProductIrRange)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.ProductCategory)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.ProductPrice)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.ProductStock)
+		</th>
+		<th>
+			@Html.DisplayNameFor(model => model.ProductVisibility)
+		</th>
+		<th></th>
+	</tr>
+
+	@foreach (var item in Model) {
+		<tr>
+			<td>
+				@Html.DisplayFor(modelItem => item.ProductName)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.ProductDescription)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.ProductMatrixResolution)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.ProductIrRange)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.ProductCategory)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.ProductPrice)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.ProductStock)
+			</td>
+			<td>
+				@Html.DisplayFor(modelItem => item.ProductVisibility)
+			</td>
+			<td>
+				@Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+				@Ajax.ActionLink("Delete", "Delete", new {id = item.Id}, new AjaxOptions {HttpMethod = "POST"})
+			</td>
+		</tr>
+	}
+
+</table>
+<div id="element_to_pop_up">Content of popup</div>
+
+<button id="b1">PressMe</button>
+<button id="b2">PressMe2</button>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+<script src="https://raw.github.com/dinbror/bpopup/master/jquery.bpopup.min.js"></script>
+<script>
+	$(document).ready(function(){
+		$("#b1").click(function(){
+			$.get("http://localhost:8269/ProductModel/GimmeData", function(data, status){
+				alert("Data: " + data + "\nStatus: " + status);
+			});
+		});
+	});
+</script>
+<script>
+	$(document).ready(function() {
+		$('#b1').click(function e(){ 
+
+			// Prevents the default action to be triggered. 
+			//e.preventDefault();
+
+			$('element_to_pop_up').bPopup({
+				content: 'iframe', //'ajax', 'iframe' or 'image'
+				contentContainer: '.content',
+				loadUrl: 'http://localhost:8269/ProductModel/Edit/32' //Uses jQuery.load()
+			});
+		});
+	});
+</script>
+

@@ -26,7 +26,7 @@ namespace MyProject.Repository
             //    .SingleOrDefault<object[]>();
 
             return _session.QueryOver(()=>user)
-                .JoinAlias(()=>user.Orders, ()=>order)
+                //.JoinAlias(()=>user.Orders, ()=>order)
                 .SelectList(list => list
                     .SelectGroup(()=>user.Id)
                     .SelectCount(()=>order.Id)

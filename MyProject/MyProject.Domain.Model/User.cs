@@ -9,17 +9,17 @@ namespace MyProject
         {
             public virtual string UserName { get; set; }
             public virtual string PasswordHash { get; set; }
-            public virtual string Email { get; set; }
-            public virtual ICollection<Role> Roles { get; protected set; }
+           // public virtual string Email { get; set; }
+            //public virtual ICollection<Role> Roles { get; protected set; }
 
             //public ICollection<Key> Keys { get; set; }
-            public virtual ICollection<Order> Orders { get; set; }
-            public virtual Profile Profile { get; set; }
+          //  public virtual ICollection<Order> Orders { get; set; }
+            //public virtual Profile Profile { get; set; }
 
-            public User()
-            {
-                this.Roles = new List<Role>();
-            }
+            //public User()
+            //{
+            //    this.Roles = new List<Role>();
+            //}
         }
         //public User()
         //{
@@ -44,18 +44,6 @@ namespace MyProject
         //    order.User = this;
         //}
 
-    public class UserMap : ClassMap<User>
-    {
-        public UserMap()
-        {
-            Id(x => x.Id);
-            Map(x => x.Email);
-            Map(x => x.PasswordHash);
-            Map(x => x.Roles);
-            Map(x => x.UserName);
-            Map(x => x.Orders);
-            Map(x => x.Profile);
-        }
-    }
+    
 
 }
